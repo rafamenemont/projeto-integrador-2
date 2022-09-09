@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import Dashboard from "./views/dashboard/Dashboard";
 import PageNotFound from "./views/PageNotFoiund/PageNotFoiund"
 
 const AppRoutes = () => {
@@ -7,10 +8,7 @@ const AppRoutes = () => {
     <div>
           <Routes>
             <Route path={'/'} element={<PageNotFound />} />
-            {/* <PrivateRoutes path={'/search'} element={<PageNotFound />} /> */}
-            {/* <MenuAndHeader> */}
-            {/* <PrivateRoutes path={'/inicial'} element={<PageNotFound />} /> */}
-            {/* </MenuAndHeader> */}
+                <Route path={'/dashboard'} element={<Dashboard />} />
             <Route path={'*'} element={<PageNotFound />} />
           </Routes>
     </div>
