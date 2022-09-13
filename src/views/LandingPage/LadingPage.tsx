@@ -1,35 +1,36 @@
 import styled from "styled-components";
+import { Button } from "../../components/Button/button";
 
 const LandingPage = () => {
     return (
         <ContainerPage>
-            <Container>
-                👋
-            </Container>
+            <Navbar>
+                <Button text="Entrar" format="transparent"></Button>
+            </Navbar>
         </ContainerPage>
     );
 };
 
-const Container = styled.div`
-  padding: 32px;
-  margin: auto;
-  border-radius: 24px;
-  background: ${({ theme }) => theme.bodyComponent};
-  flex: 50%;
-  width: 50%;
-  margin: 0 16px;
-  font-size: 18px;
-  line-height: 1.33333;
-  font-weight: bold;
+const ContainerPage = styled.div`
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+
+    background: ${({ theme }) => theme.background};
 `;
 
-const ContainerPage = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const Navbar = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100px;
+    background: ${({ theme }) => theme.background};
+
+    border-bottom: 1px solid ${({ theme }) => theme.toggleBorder};
+`
 
 
 export default LandingPage;
