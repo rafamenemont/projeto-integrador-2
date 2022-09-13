@@ -1,23 +1,11 @@
 import React, { useState } from 'react';
-import styled from 'styled-components/macro';
 import BurgerImg from '../../images/burger-menu.svg'
 import {
+  BurgerMenu,
   StyledContainer,
   StyledContainerPage,
   StyledMenuContainer,
 } from './styles';
-
-
-const BurgerMenu = styled.div`
-  height: 68px;
-  display: flex;
-  margin-top: -30px;
-  margin-left: -9px;
-  img {
-    width: 49px;
-    cursor: pointer;
-  }
-`;
 
 interface StyledModalProps {
   children: React.ReactElement

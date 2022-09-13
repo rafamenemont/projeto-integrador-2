@@ -8,6 +8,17 @@ export const StyledContainer = styled.div`
   background: ${({ theme }) => theme.background};
 `;
 
+export const BurgerMenu = styled.div`
+  height: 105px;
+  display: flex;
+  margin-top: -30px;
+  margin-left: -9px;
+  img {
+    width: 60px;
+    cursor: pointer;
+  }
+`;
+
 export const StyledMenuContainer = styled.div`
   position: relative;
   min-height: 950px;
@@ -57,7 +68,7 @@ export const StyledMenuContainer = styled.div`
   }
 
   input[type='checkbox']:checked ~ .sidebarIconToggle {
-    margin-left: 283px;
+    margin-left: 249px;
   }
 
   .spinner {
