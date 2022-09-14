@@ -24,7 +24,7 @@ const Container = styled.div`
   font-weight: bold;
 `;
 
-const ContainerPage = styled.div`
+export const ContainerPage = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
