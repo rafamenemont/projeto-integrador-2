@@ -7,12 +7,12 @@ const AppRoutes = () => {
 
   return (
     <div>
-          <Routes>
-            <Route path={'/'} element={<LandingPage />} />
-            <Route path={'/'} element={<PageNotFound />} />
-            <Route path={'/'} element={<Dashboard />} />
-            <Route path={'*'} element={<PageNotFound />} />
-          </Routes>
+      <Routes>
+        <Route path={'/'} element={<LandingPage />} />
+        <Route path={'/'} element={<PageNotFound />} />
+        <Route path={'/'} element={<Dashboard />} />
+        <Route path={'*'} element={<PageNotFound />} />
+      </Routes>
     </div>
   );
 };
