@@ -1,57 +1,59 @@
+import { render } from "@testing-library/react"
 import React from "react"
 import styled from "styled-components"
 
 
 export const Button: React.FC<{
+    format: string,
     text: string
-    format: string
-}> = ({ text, format }) => {
+}> = ({ format, text }) => {
     return (
         format == "transparent" ? <TransparentButton>{text}</TransparentButton> : <SolidButton>{text}</SolidButton>
     )
 }
 
 const TransparentButton = styled.button`
-    width: 150px;
-    height: 50px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: bold;
+    width: 136px;
+    height: 46px;
+    padding: 0 20px;
+    border-radius: 16px/16px;
     font-family: ${({ theme }) => theme.fontTheme};
-    color: ${({ theme }) => theme.toggleBorder};
-    
-    background: transparent;
-    border: 2px solid  ${({ theme }) => theme.toggleBorder};
-    border-radius: 10px;
-
+    font-size: 14px;
+    line-height: 1.42857;
+    font-weight: 700;
+    -webkit-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+    background: ${({ theme }) => theme.buttonTransparent};
+    color: ${({ theme }) => theme.buttonTransparentText};
+    border: 2px solid ${({ theme }) => theme.buttonTransparentBorder};
     cursor: pointer;
 
     &:hover {
-        color: ${({ theme }) => theme.background};
-        background: ${({ theme }) => theme.toggleBorder};
-        border: 2px solid  ${({ theme }) => theme.toggleBorder};
+        background: ${({ theme }) => theme.buttonTransparentHover};
+        border: 2px solid ${({ theme }) => theme.buttonTransparentHover};
     }
-
 `
 
 const SolidButton = styled.button`
-    width: 300px;
-    height: 150px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    width: 166px;
+    height: 46px;
+    padding: 0 20px;
+    border-radius: 16px/16px;
     font-family: ${({ theme }) => theme.fontTheme};
-
-    border: 2px solid  ${({ theme }) => theme.background};
+    font-size: 14px;
+    line-height: 1.42857;
+    font-weight: 700;
+    -webkit-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+    background: ${({ theme }) => theme.buttonSolid};
+    color: ${({ theme }) => theme.buttonSolidText};
+    border: 2px solid ${({ theme }) => theme.buttonSolidBorder};
+    cursor: pointer;
 
     &:hover {
-        background: ${({ theme }) => theme.background};
+        background: ${({ theme }) => theme.buttonSolidHover};
+        border: 2px solid ${({ theme }) => theme.buttonSolidHover};
     }
 `
