@@ -6,13 +6,13 @@ interface Props {
     type?: "submit" | "button";
 }
 
-function Button(props: Props) {
+function ButtonForm(props: Props) {
     return (
         <ButtonLogin type={props.type}>{props.name}</ButtonLogin>
     )
 }
 
-export default Button
+export default ButtonForm
 
 const ButtonLogin = styled.button`
     cursor: pointer;

@@ -8,23 +8,27 @@ interface Props {
   type: string;
   value: string;
   error?: string;
+  id:string;
 }
 
-function Input({labelName, onChange, place, type, value, error="" }: Props) {
+function Input({ id,labelName, onChange, place, type, value, error = "" }: Props) {
   return (
     <InputContainer>
-      <label htmlFor={labelName}>
-        {labelName}
-      </label>
+      <div>
+        <label htmlFor={labelName}>
+          {labelName}
+        </label>
+        {error && <span>{error}</span>}
+      </div>
       <input
+        autoComplete='off'
         defaultValue={value}
-        name={labelName}
+        name={id}
         type={type}
         onChange={onChange}
-        id={labelName}
+        id={id}
         placeholder={place}
       />
-      {error && <span>{error}</span>}
     </InputContainer>
   )
 }
@@ -35,9 +39,17 @@ const InputContainer = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    color: #FFA500;
+    font-size: 15px;
+  }
   
   label{
-    
     font-weight: 500;
     font-size: 15px;
     color: #ddd;

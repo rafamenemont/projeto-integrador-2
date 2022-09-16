@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 
 interface Props {
-    name: any;
+    name: JSX.Element;
     onclick: any;
     backgroundColor: string;
   }
