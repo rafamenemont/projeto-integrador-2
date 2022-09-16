@@ -1,6 +1,7 @@
 import { Button } from "../../components/Button/button";
-import { ContainerFooter, ContainerHeader, ContainerList, ContainerPage, Navbar } from "./style";
+import { ContainerFooter, ContainerHeader, ContainerList, ContainerPage, IconSignIn, IconSignUp, Navbar } from "./style";
 import LandingPageImg from "../../assets/landing-page.png"
+import LandingPageImgMobile from "../../assets/landing-page-mobile.png"
 import Logo from "../../assets/logo.png"
 
 const LandingPage = () => {
@@ -12,16 +13,16 @@ const LandingPage = () => {
                     <p>Wallet</p>
                 </li>
                 <li>
-                    <Button text="Cadastrar" format="solid"></Button>
-                    <Button text="Entrar" format="transparent"></Button>
+                    <Button text="Cadastrar" format="solid"><IconSignUp /></Button>
+                    <Button text="Entrar" format="transparent"><IconSignIn /></Button>
                 </li>
             </Navbar>
             <ContainerHeader>
                 <p>Seu app de gestão financeira</p>
                 <h1>Gerencie seus gastos com Wallet, e descomplique sua gestão financeira!</h1>
                 <div className="group-button">
-                    <Button text="Cadastrar" format="solid"></Button>
-                    <Button text="Entrar" format="transparent"></Button>
+                    <Button text="Cadastrar" format="solid"><IconSignUp /></Button>
+                    <Button text="Entrar" format="transparent"><IconSignIn /></Button>
                 </div>
             </ContainerHeader>
             <ContainerList>
@@ -40,7 +41,7 @@ const LandingPage = () => {
                     </div>
                     <div className="card-content">
                         <h2>Entrar em sua conta</h2>
-                        <p>Depois de se cadastrar você estará pronto para começar a usar nosso sistema de gestão financeira, mas para isso você precisará entrar em sua conta. É só clicar no botão entrar.</p>
+                        <p>Depois de se cadastrar, você estará pronto para começar a usar nosso sistema de gestão financeira, mas para isso você precisará entrar em sua conta. É só clicar no botão entrar.</p>
                     </div>
                 </div>
                 <div className="card">
@@ -54,7 +55,8 @@ const LandingPage = () => {
                 </div>
             </ContainerList>
             <ContainerFooter>
-                <img src={LandingPageImg} />
+                <img src={LandingPageImg} className="landingDesk" />
+                <img src={LandingPageImgMobile} className="landingMob" />
             </ContainerFooter>
         </ContainerPage>
     );

@@ -1,18 +1,25 @@
-import { render } from "@testing-library/react"
 import React from "react"
 import styled from "styled-components"
 
-
-export const Button: React.FC<{
+interface IButtonProps {
     format: string,
-    text: string
-}> = ({ format, text }) => {
+    text: string,
+    children?: JSX.Element
+}
+
+export const Button: React.FC<IButtonProps> = ({ format, text, children }) => {
     return (
-        format == "transparent" ? <TransparentButton>{text}</TransparentButton> : <SolidButton>{text}</SolidButton>
+        format == "transparent" ? <TransparentButton>{children}{text}</TransparentButton> : <SolidButton>{children}{text}</SolidButton>
     )
 }
 
 const TransparentButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    position: relative;
     width: 136px;
     height: 46px;
     padding: 0 20px;
@@ -33,9 +40,21 @@ const TransparentButton = styled.button`
         background: ${({ theme }) => theme.buttonTransparentHover};
         border: 2px solid ${({ theme }) => theme.buttonTransparentHover};
     }
+    
+    @media (max-width: 768px) {
+        width: 130px;
+        height: 46px;
+        font-size: 12px;
+    }
 `
 
 const SolidButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    position: relative;
+
     width: 166px;
     height: 46px;
     padding: 0 20px;
@@ -55,5 +74,11 @@ const SolidButton = styled.button`
     &:hover {
         background: ${({ theme }) => theme.buttonSolidHover};
         border: 2px solid ${({ theme }) => theme.buttonSolidHover};
+    }
+    
+    @media (max-width: 768px) {
+        width: 130px;
+        height: 46px;
+        font-size: 12px;
     }
 `

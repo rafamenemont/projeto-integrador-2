@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { BiLogIn, BiUserPlus } from 'react-icons/bi';
 
 export const ContainerPage = styled.div`
     display: grid;
-    grid-template-rows: 84px auto 200px;
+    grid-template-rows: 84px auto 250px;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: "nb nb"
                         "hd lt"
@@ -13,6 +14,15 @@ export const ContainerPage = styled.div`
     min-height: 100vh;
 
     background: ${({ theme }) => theme.bodyComponent};
+
+    @media (max-width: 768px) {
+        grid-template-rows: 84px auto 250px auto;
+        grid-template-columns: 1fr;
+        grid-template-areas: "nb"
+                            "hd"
+                            "im"
+                            "lt";
+    }
 `;
 
 export const Navbar = styled.div`
@@ -58,6 +68,23 @@ export const Navbar = styled.div`
         text-transform: uppercase;
         font-weight: 900;
     }
+
+    @media (max-width: 768px) {
+        padding: 0 15px;
+
+        > li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+
+            list-style-type: none;
+        }
+
+        > li p {
+            display: none;
+        }
+    }
 `
 
 export const ContainerHeader = styled.div`
@@ -71,6 +98,8 @@ export const ContainerHeader = styled.div`
     padding: 50px 100px 50px 150px;
 
     position: relative;
+
+    background: ${({ theme }) => theme.bodyComponent};
 
     &:before{
         content: '';
@@ -100,6 +129,31 @@ export const ContainerHeader = styled.div`
     > .group-button {
         display: flex;
         gap: 25px;
+        margin-top: 30px;
+    }
+
+    @media (max-width: 768px) {
+        align-items: center;
+        padding: 50px 25px;
+
+        &:before{
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            width: 0;
+            height: 0;
+        }
+
+        > h1 {
+            font-size: 34px;
+            text-align: center;
+        }
+
+        > .group-button {
+            gap: 15px;
+        }
     }
 `
 
@@ -145,6 +199,10 @@ export const ContainerList = styled.div`
         filter: opacity(0.7);
         line-height: 25px;
     }
+
+    @media (max-width: 768px) {
+        padding: 50px 25px;
+    }
 `
 
 export const ContainerFooter = styled.div`
@@ -156,9 +214,38 @@ export const ContainerFooter = styled.div`
 
     position: relative;
     
+    background: ${({ theme }) => theme.bodyComponent};
 
-    > img {
+    > img.landingDesk {
         position: absolute;
         bottom: 0;
     }
+
+    > img.landingMob {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        > img.landingDesk {
+            display: none;
+        }
+
+        > img.landingMob {
+            display: block;
+            position: relative;
+            width: 250px;
+        }
+    }
+`
+
+export const IconSignIn = styled(BiLogIn)`
+    color: ${({ theme }) => theme.text};
+    margin-left: -15px;
+    font-size: 18px;
+`
+
+export const IconSignUp = styled(BiUserPlus)`
+    color: ${({ theme }) => theme.text};
+    margin-left: -15px;
+    font-size: 18px;
 `
