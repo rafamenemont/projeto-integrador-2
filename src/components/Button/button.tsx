@@ -7,7 +7,7 @@ export const Button: React.FC<{
     format: string
 }> = ({ text, format }) => {
     return (
-        format == "transparent" ? <TransparentButton>{text}</TransparentButton> : <SolidButton>{text}</SolidButton>
+        format === "transparent" ? <TransparentButton>{text}</TransparentButton> : <SolidButton>{text}</SolidButton>
     )
 }
 

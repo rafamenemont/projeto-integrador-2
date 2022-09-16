@@ -5,12 +5,13 @@ import {useState} from 'react'
 
 import Input from '../../Components/FormComponents/Input'
 import ButtonsSocial from "../../Components/FormComponents/ButtonsSocial";
-import Button from "../../Components/FormComponents/Button";
+import ButtonForm from "../../Components/FormComponents/ButtonForm";
 import { loginSchema } from "../../Schema/login";
+import { Link } from "react-router-dom";
 
 function FormLogin() {
 
-    const [error, setError] = useState(false)
+    const [showErros, setshowErros] = useState(false)
 
     const {values, errors, handleChange, handleSubmit} = useFormik({
         initialValues: {
@@ -24,7 +25,7 @@ function FormLogin() {
     })
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        setError(true)
+        setshowErros(true)
         handleSubmit(e)
     }
 
@@ -36,22 +37,24 @@ function FormLogin() {
                     <Input
                         type='text'
                         labelName='Email'
+                        id="email"
                         onChange={handleChange}
                         place='Type Your Email'
                         value={values.email}
-                        error={error ? errors.email : ''}
+                        error={showErros ? errors.email : ''}
                     />
 
                     <Input
                         type='password'
                         labelName='Password'
+                        id="password"
                         onChange={handleChange}
                         place='Type Your Password'
                         value={values.password}
-                        error={error ? errors.password : ''}
+                        error={showErros ? errors.password : ''}
                     />
-                    <p>Forgot Password?</p>
-                    <Button type="submit" name='Login' />
+                    <Link to="/">Forgot Password?</Link>
+                    <ButtonForm type="submit" name='Login' />
                 </Container>
                 <p>Or Login Using</p>
                 <ContainerSocial>
@@ -72,7 +75,7 @@ function FormLogin() {
                 </ContainerSocial>
                 <ContaierSign>
                     <p>Don't have an account?</p>
-                    <p>Sign Up</p>
+                    <Link to='/Signup'>Sign Up</Link>
                 </ContaierSign>
             </ContainerLogin>
         </ContainerForm>
@@ -89,6 +92,12 @@ const ContaierSign = styled.div`
     gap: 10px;
     font-size: 15px;
     margin-top: 20px;
+
+    a{
+        text-decoration: none;
+        color: #40A8C4;
+        font-weight: 600;
+    }
 `
 
 const ContainerSocial = styled.div`
@@ -107,14 +116,16 @@ const Container = styled.div`
       flex-direction: column;
       gap: 20px;
 
-      p{
+      a{
+        text-decoration: none;
+        color: #fff;
         align-self: flex-end;
         font-size: 12px;
       }
 `
 
 const ContainerLogin = styled.form`  
-    min-height: 85%;
+    min-height: 80%;
     min-width: 30%;
     background: ${({ theme }) => theme.bodyComponent};
     display: flex;
@@ -123,7 +134,7 @@ const ContainerLogin = styled.form`
     justify-content:flex-start;
     gap: 20px;
     border-radius: 10px;
-    padding: 40px;
+    padding: 20px;
 
     h1{
         justify-self: flex-start;
@@ -137,7 +148,6 @@ const ContainerLogin = styled.form`
 
     }
 `
-
 
 export const ContainerForm = styled.div`
     height: 100vh;

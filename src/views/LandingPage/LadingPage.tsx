@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button } from "../../components/Button/button";
+import { Button } from "../../Components/Button/button";
 
 const LandingPage = () => {
     return (
