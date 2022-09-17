@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledContainer = styled.div`
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   box-sizing: border-box;
   height: 100vh;
   background: ${({ theme }) => theme.darkerBlack};
@@ -20,27 +20,34 @@ export const BurgerMenu = styled.div`
 `;
 
 export const StyledMenuContainer = styled.div`
-  position: relative;
-  min-height: 950px;
+  /* position: relative; */
+  min-height: 90vh;
   padding: 44px 0 40px 0;
   transition: all 300ms ease-in-out;
   font-size: 16px;
   color: white;
   background: ${({ theme }) => theme.darkerBlack};
   border-right: grey 2px solid;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  border-color: rgba(228, 228, 228, 0.1);
   svg {
     min-width: 30px;
     min-height: 30px;
   }
+  .logo {
+    width: 48px;
+    margin-top: 4px;
+  }
 
   #sidebarMenu {
     height: 100%;
-    position: fixed;
-    left: 0;
-    width: 80px;
+    padding: 13px;
+    border-top: 1px solid #E4E4E4;
+    border-color: rgba(228, 228, 228, 0.1);
     margin-top: 20px;
     transition: all 300ms ease-in-out;
-    margin-left: -7px;
   }
 
   input[type='checkbox']:checked ~ #sidebarMenu {
@@ -71,83 +78,22 @@ export const StyledMenuContainer = styled.div`
     margin-left: 249px;
   }
 
-  .spinner {
+  /* .spinner {
     transition: all 0.3s;
     box-sizing: border-box;
     position: absolute;
     height: 3px;
     width: 100%;
     background-color: #fff;
-  }
-  .horizontal {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    position: relative;
-    float: left;
-    margin-top: 3px;
-  }
-  .diagonal.part-1 {
-    position: relative;
-    transition: all 0.3s;
-    box-sizing: border-box;
-    float: left;
-  }
-  .diagonal.part-2 {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    position: relative;
-    float: left;
-    margin-top: 3px;
-  }
+  } */
 
-  @media (max-height: 982px) {
-    zoom: 95%;
-    @-moz-document url-prefix() {
-      #sidebarMenu {
-        overflow-y: scroll;
-      }
-    }
-  }
-  @media (max-height: 928px) {
-    zoom: 90%;
-    @-moz-document url-prefix() {
-      #sidebarMenu {
-        overflow-y: scroll;
-      }
-    }
-  }
-  @media (max-height: 890px) {
-    zoom: 86%;
-  }
-  @media (max-height: 838px) {
-    zoom: 79%;
-  }
-  @media (max-height: 800px) {
-    zoom: 70%;
-  }
-  @media (max-height: 710px) {
-    zoom: 66%;
-  }
-  @media (max-height: 665px) {
-    zoom: 60%;
-  }
-  @media (max-height: 615px) {
-    #sidebarMenu {
-      overflow-y: scroll;
-    }
-    ::-webkit-scrollbar {
-      max-width: 8px;
-    }
-  }
 `;
 
 export const StyledContainerPage = styled.div`
   min-height: 786px;
   height: 100%;
-  width: 100%;
   background-color: #f1f1f1;
   padding: 0 30px 55px 30px;
   min-height: calc(100vh - 114px);
-  overflow-y: scroll;
   background: ${({ theme }) => theme.darkerBlack};
 `;

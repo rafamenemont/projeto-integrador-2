@@ -41,11 +41,12 @@ const HelloTitle = styled.div`
 `;
 
 const BalanceTitle = styled.div`
-  font-size: 70px;
+  font-size: 66px;
   line-height: 1.22222;
   color: ${({ theme }) => theme.purple};
   display: flex;
   flex-direction: row;
+  min-width: 285px;
   div {
     font-size: 32px;
     align-self: flex-end;
@@ -72,6 +73,7 @@ const Container = styled.div`
   font-size: 18px;
   line-height: 1.33333;
   font-weight: bold;
+  min-width: 380px;
 `;
 
 
