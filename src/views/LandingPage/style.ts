@@ -79,6 +79,8 @@ export const Navbar = styled.div`
     }
 
     @media only screen and (max-width: 1200px) {
+        padding: 0 100px;
+
         > li {
             gap: 15px;
         }
@@ -144,7 +146,7 @@ export const ContainerHeader = styled.div`
 
     @media only screen and (max-width: 1200px) {
         align-items: center;
-        padding: 100px 150px;
+        padding: 100px;
 
         &:before{
             width: 0;
@@ -219,7 +221,7 @@ export const ContainerList = styled.div`
     }
 
     @media only screen and (max-width: 768px) {
-        padding: 100px 150px;
+        padding: 100px;
     }
 
     @media only screen and (max-width: 768px) {
