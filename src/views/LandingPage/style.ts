@@ -15,7 +15,16 @@ export const ContainerPage = styled.div`
 
     background: ${({ theme }) => theme.bodyComponent};
 
-    @media (max-width: 768px) {
+    @media only screen and (max-width: 1200px) {
+        grid-template-rows: 84px auto 300px auto;
+        grid-template-columns: 1fr;
+        grid-template-areas: "nb"
+                            "hd"
+                            "im"
+                            "lt";
+    }
+
+    @media only screen and (max-width: 768px) {
         grid-template-rows: 84px auto 250px auto;
         grid-template-columns: 1fr;
         grid-template-areas: "nb"
@@ -69,20 +78,21 @@ export const Navbar = styled.div`
         font-weight: 900;
     }
 
-    @media (max-width: 768px) {
-        padding: 0 15px;
-
+    @media only screen and (max-width: 1200px) {
         > li {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-
-            list-style-type: none;
+            gap: 15px;
         }
 
         > li p {
             display: none;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        padding: 0 15px;
+
+        > li {
+            gap: 5px;
         }
     }
 `
@@ -132,19 +142,27 @@ export const ContainerHeader = styled.div`
         margin-top: 30px;
     }
 
-    @media (max-width: 768px) {
+    @media only screen and (max-width: 1200px) {
         align-items: center;
-        padding: 50px 25px;
+        padding: 100px 150px;
 
         &:before{
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-
             width: 0;
             height: 0;
         }
+
+        > h1 {
+            text-align: center;
+        }
+
+        > .group-button {
+            gap: 15px;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        align-items: center;
+        padding: 50px 25px;
 
         > h1 {
             font-size: 34px;
@@ -152,7 +170,7 @@ export const ContainerHeader = styled.div`
         }
 
         > .group-button {
-            gap: 15px;
+            gap: 5px;
         }
     }
 `
@@ -200,7 +218,11 @@ export const ContainerList = styled.div`
         line-height: 25px;
     }
 
-    @media (max-width: 768px) {
+    @media only screen and (max-width: 768px) {
+        padding: 100px 150px;
+    }
+
+    @media only screen and (max-width: 768px) {
         padding: 50px 25px;
     }
 `
@@ -225,7 +247,7 @@ export const ContainerFooter = styled.div`
         display: none;
     }
 
-    @media (max-width: 768px) {
+    @media only screen and (max-width: 1200px) {
         > img.landingDesk {
             display: none;
         }
@@ -233,6 +255,14 @@ export const ContainerFooter = styled.div`
         > img.landingMob {
             display: block;
             position: relative;
+            width: 350px;
+        }
+    }
+
+    
+
+    @media only screen and (max-width: 768px) {
+        > img.landingMob {
             width: 250px;
         }
     }
