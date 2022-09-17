@@ -1,4 +1,4 @@
-import { Button } from "../../components/Button/button";
+import { Button } from "../../Components/Button/button";
 import { ContainerFooter, ContainerHeader, ContainerList, ContainerPage, IconSignIn, IconSignUp, Navbar } from "./style";
 import LandingPageImg from "../../assets/landing-page.png"
 import LandingPageImgMobile from "../../assets/landing-page-mobile.png"
