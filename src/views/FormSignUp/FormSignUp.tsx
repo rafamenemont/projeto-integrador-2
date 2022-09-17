@@ -110,7 +110,7 @@ const Container = styled.div`
 const ContainerSignUp = styled.form`
     min-height: 80%;
     min-width: 50%;
-    background: ${({ theme }) => theme.bodyComponent};
+    background: ${({ theme }) => theme.black};
     display: flex;
     flex-direction: column;
     align-items: center;

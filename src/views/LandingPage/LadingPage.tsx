@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { Button } from "../../Components/Button/button";
+import ButtonForm  from "../../Components/FormComponents/ButtonForm";
 
 const LandingPage = () => {
     return (
         <ContainerPage>
             <Navbar>
-                <Button text="Entrar" format="transparent"></Button>
+                <ButtonForm name="Entrar" type="button"></ButtonForm>
             </Navbar>
         </ContainerPage>
     );
@@ -17,7 +17,7 @@ const ContainerPage = styled.div`
     display: flex;
     justify-content: center;
 
-    background: ${({ theme }) => theme.background};
+    background: ${({ theme }) => theme.darkerBlack};
 `;
 
 const Navbar = styled.div`
@@ -27,7 +27,7 @@ const Navbar = styled.div`
 
     width: 100%;
     height: 100px;
-    background: ${({ theme }) => theme.background};
+    background: ${({ theme }) => theme.darkerBlack};
 
     border-bottom: 1px solid ${({ theme }) => theme.toggleBorder};
 `

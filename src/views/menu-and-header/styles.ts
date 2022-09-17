@@ -5,7 +5,7 @@ export const StyledContainer = styled.div`
   flex-wrap: nowrap;
   box-sizing: border-box;
   height: 100vh;
-  background: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.darkerBlack};
 `;
 
 export const BurgerMenu = styled.div`
@@ -26,7 +26,7 @@ export const StyledMenuContainer = styled.div`
   transition: all 300ms ease-in-out;
   font-size: 16px;
   color: white;
-  background: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.darkerBlack};
   border-right: grey 2px solid;
   svg {
     min-width: 30px;
@@ -149,5 +149,5 @@ export const StyledContainerPage = styled.div`
   padding: 0 30px 55px 30px;
   min-height: calc(100vh - 114px);
   overflow-y: scroll;
-  background: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.darkerBlack};
 `;

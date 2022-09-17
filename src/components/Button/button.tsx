@@ -32,7 +32,7 @@ const TransparentButton = styled.button`
     cursor: pointer;
 
     &:hover {
-        color: ${({ theme }) => theme.background};
+        color: ${({ theme }) => theme.darkerBlack};
         background: ${({ theme }) => theme.toggleBorder};
         border: 2px solid  ${({ theme }) => theme.toggleBorder};
     }
@@ -49,9 +49,9 @@ const SolidButton = styled.button`
 
     font-family: ${({ theme }) => theme.fontTheme};
 
-    border: 2px solid  ${({ theme }) => theme.background};
+    border: 2px solid  ${({ theme }) => theme.darkerBlack};
 
     &:hover {
-        background: ${({ theme }) => theme.background};
+        background: ${({ theme }) => theme.darkerBlack};
     }
 `

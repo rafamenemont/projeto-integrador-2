@@ -1,8 +1,8 @@
-const backgroundBlack = '#1F212A';
-const blackComponent = '#242731';
-const purpleComponent = '#6D65D3';
-const blueComponent = '#418AFB';
-const grayComponent = '#242731';
+const darkerBlack = '#1F212A';
+const black = '#242731';
+const purple = '#6D65D3';
+const blue = '#418AFB';
+const gray = '#242731';
 
 export const lightTheme = {
   bodyComponent: '#FFF',
@@ -13,10 +13,13 @@ export const lightTheme = {
 }
 
 export const darkTheme = {
-  bodyComponent: blackComponent,
   text: '#FAFAFA',
   toggleBorder: '#6B8096',
   fontTheme: "'Poppins', sans-serif",
-  background: backgroundBlack,
+  black,
+  darkerBlack,
+  purple,
+  blue,
+  gray,
 }
 

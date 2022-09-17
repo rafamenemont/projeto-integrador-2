@@ -2,11 +2,14 @@ import 'styled-components';
 
 declare module 'styled-components' {
   type ThemeType = {
-    bodyComponent: string;
     text: string;
     toggleBorder: string;
-    background: string;
     fontTheme: string;
+    black: string;
+    darkerBlack: string;
+    purple: string;
+    blue: string;
+    gray: string;
   }
 
   export interface DefaultTheme extends ThemeType {}

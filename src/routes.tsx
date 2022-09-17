@@ -10,17 +10,11 @@ const AppRoutes = () => {
   return (
     <div>
           <Routes>
-        <Route path={'/'} element={<FormLogin />} />
-            {/* <PrivateRoutes path={'/search'} element={<PageNotFound />} /> */}
-            {/* <MenuAndHeader> */}
-            {/* <PrivateRoutes path={'/inicial'} element={<PageNotFound />} /> */}
-            {/* </MenuAndHeader> */}
             <Route path={'/'} element={<LandingPage />} />
-            <Route path={'/'} element={<PageNotFound />} />
-            <Route path={'/'} element={<Dashboard />} />
+            <Route path={'/dashboard'} element={<Dashboard />} />
+            <Route path={'/login'} element={<FormLogin />}/>
+            <Route path={'/signUp'} element={<FormSignUp />} />
             <Route path={'*'} element={<PageNotFound />} />
-            <Route path={'/Login'} element={<FormLogin />}/>
-            <Route path={'/SignUp'} element={<FormSignUp />} />
           </Routes>
     </div>
   );
