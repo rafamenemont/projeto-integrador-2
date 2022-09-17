@@ -6,6 +6,7 @@ import {
   StyledContainerPage,
   StyledMenuContainer,
 } from './styles';
+import Logo from "../../assets/logo.png"
 
 interface StyledModalProps {
   children: React.ReactElement
@@ -24,6 +25,7 @@ const MenuAndHeader: React.FC<StyledModalProps>  = ({children}) => {
           </BurgerMenu>
         </label>
         <div id="sidebarMenu">
+        <img className="logo" src={Logo} alt='Logo' />
         </div>
       </StyledMenuContainer>
 

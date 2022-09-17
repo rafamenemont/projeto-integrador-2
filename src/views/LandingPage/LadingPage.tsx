@@ -1,36 +1,65 @@
-import styled from "styled-components";
-import { Button } from "../../Components/Button/button";
+import { Button } from "../../components/Button/button";
+import { ContainerFooter, ContainerHeader, ContainerList, ContainerPage, IconSignIn, IconSignUp, Navbar } from "./style";
+import LandingPageImg from "../../assets/landing-page.png"
+import LandingPageImgMobile from "../../assets/landing-page-mobile.png"
+import Logo from "../../assets/logo.png"
 
 const LandingPage = () => {
     return (
         <ContainerPage>
             <Navbar>
-                <Button text="Entrar" format="transparent"></Button>
+                <li>
+                    <img src={Logo} alt='Logo' />
+                    <p>Wallet</p>
+                </li>
+                <li>
+                    <Button text="Cadastrar" format="solid"><IconSignUp /></Button>
+                    <Button text="Entrar" format="transparent"><IconSignIn /></Button>
+                </li>
             </Navbar>
+            <ContainerHeader>
+                <p>Seu app de gestão financeira</p>
+                <h1>Gerencie seus gastos com Wallet, e descomplique sua gestão financeira!</h1>
+                <div className="group-button">
+                    <Button text="Cadastrar" format="solid"><IconSignUp /></Button>
+                    <Button text="Entrar" format="transparent"><IconSignIn /></Button>
+                </div>
+            </ContainerHeader>
+            <ContainerList>
+                <div className="card">
+                    <div className="card-header">
+                        <p>01.</p>
+                    </div>
+                    <div className="card-content">
+                        <h2>Criar um cadastro em nosso sistema</h2>
+                        <p>Para realizar seu cadastro em nosso sistema é muito simples, basta clicar no botão cadastrar e preencher o formulário. Ah! Não se esqueça de escolher o avatar que é a sua cara.</p>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-header">
+                        <p>02.</p>
+                    </div>
+                    <div className="card-content">
+                        <h2>Entrar em sua conta</h2>
+                        <p>Depois de se cadastrar, você estará pronto para começar a usar nosso sistema de gestão financeira, mas para isso você precisará entrar em sua conta. É só clicar no botão entrar.</p>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-header">
+                        <p>03.</p>
+                    </div>
+                    <div className="card-content">
+                        <h2>Começar a usar</h2>
+                        <p>Depois de entrar, você verá o mundo financeiro de uma forma como você nunca imaginou. Com um dashboard super intuitivo, basta sair navegando e aproveitar.</p>
+                    </div>
+                </div>
+            </ContainerList>
+            <ContainerFooter>
+                <img src={LandingPageImg} className="landingDesk" />
+                <img src={LandingPageImgMobile} className="landingMob" />
+            </ContainerFooter>
         </ContainerPage>
     );
 };
-
-const ContainerPage = styled.div`
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-
-    background: ${({ theme }) => theme.background};
-`;
-
-const Navbar = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    height: 100px;
-    background: ${({ theme }) => theme.background};
-
-    border-bottom: 1px solid ${({ theme }) => theme.toggleBorder};
-`
-
 
 export default LandingPage;

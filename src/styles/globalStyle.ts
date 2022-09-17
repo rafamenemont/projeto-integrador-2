@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${({ theme }) => theme.background};
+    background: ${({ theme }) => theme.darkerBlack};
     color: ${({ theme }) => theme.text};
     font-family: ${({ theme }) => theme.fontTheme};
     transition: all 0.50s linear;

@@ -127,7 +127,7 @@ const Container = styled.div`
 const ContainerLogin = styled.form`  
     min-height: 80%;
     min-width: 30%;
-    background: ${({ theme }) => theme.bodyComponent};
+    background: ${({ theme }) => theme.black};
     display: flex;
     flex-direction: column;
     align-items: center;
