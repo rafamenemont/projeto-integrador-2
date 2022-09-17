@@ -84,10 +84,6 @@ export const Navbar = styled.div`
         > li {
             gap: 15px;
         }
-
-        > li p {
-            display: none;
-        }
     }
 
     @media only screen and (max-width: 768px) {
@@ -95,6 +91,10 @@ export const Navbar = styled.div`
 
         > li {
             gap: 5px;
+        }
+
+        > li p {
+            display: none;
         }
     }
 `
