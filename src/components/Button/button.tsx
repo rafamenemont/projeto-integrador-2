@@ -2,14 +2,21 @@ import React from "react"
 import styled from "styled-components"
 
 interface IButtonProps {
-    format: string,
     text: string,
+    active?: boolean,
+    onClick?: () => void,
     children?: JSX.Element
 }
 
-export const Button: React.FC<IButtonProps> = ({ format, text, children }) => {
+export const TButton: React.FC<IButtonProps> = ({ text, active, onClick, children }) => {
     return (
-        format === "transparent" ? <TransparentButton>{children}{text}</TransparentButton> : <SolidButton>{children}{text}</SolidButton>
+        <TransparentButton className={active ? "active" : ""} onClick={onClick}>{children}{text}</TransparentButton>
+    )
+}
+
+export const SButton: React.FC<IButtonProps> = ({ text, active, onClick, children }) => {
+    return (
+        <SolidButton className={active ? "active" : ""} onClick={onClick}>{children}{text}</SolidButton>
     )
 }
 
@@ -20,7 +27,7 @@ const TransparentButton = styled.button`
     gap: 5px;
 
     position: relative;
-    width: 136px;
+    min-width: 136px;
     height: 46px;
     padding: 0 20px;
     border-radius: 16px/16px;
@@ -35,8 +42,14 @@ const TransparentButton = styled.button`
     color: ${({ theme }) => theme.buttonTransparentText};
     border: 2px solid ${({ theme }) => theme.buttonTransparentBorder};
     cursor: pointer;
+    flex-wrap: nowrap;
 
     &:hover {
+        background: ${({ theme }) => theme.buttonTransparentHover};
+        border: 2px solid ${({ theme }) => theme.buttonTransparentHover};
+    }
+
+    &.active {
         background: ${({ theme }) => theme.buttonTransparentHover};
         border: 2px solid ${({ theme }) => theme.buttonTransparentHover};
     }
@@ -55,7 +68,7 @@ const SolidButton = styled.button`
     gap: 5px;
     position: relative;
 
-    width: 166px;
+    min-width: 136px;
     height: 46px;
     padding: 0 20px;
     border-radius: 16px/16px;
@@ -72,6 +85,11 @@ const SolidButton = styled.button`
     cursor: pointer;
 
     &:hover {
+        background: ${({ theme }) => theme.buttonSolidHover};
+        border: 2px solid ${({ theme }) => theme.buttonSolidHover};
+    }
+
+    &.active {
         background: ${({ theme }) => theme.buttonSolidHover};
         border: 2px solid ${({ theme }) => theme.buttonSolidHover};
     }
