@@ -1,4 +1,4 @@
-import { Button } from "../../Components/Button/button";
+import { SButton, TButton } from "../../Components/Button/button";
 import { ContainerFooter, ContainerHeader, ContainerList, ContainerPage, IconSignIn, IconSignUp, Navbar } from "./style";
 import LandingPageImg from "../../assets/landing-page.png"
 import LandingPageImgMobile from "../../assets/landing-page-mobile.png"
@@ -13,16 +13,16 @@ const LandingPage = () => {
                     <p>Wallet</p>
                 </li>
                 <li>
-                    <Button text="Cadastrar" format="solid"><IconSignUp /></Button>
-                    <Button text="Entrar" format="transparent"><IconSignIn /></Button>
+                    <SButton text="Cadastrar" onClick={() => { }}><IconSignUp /></SButton>
+                    <TButton text="Entrar" onClick={() => { }}><IconSignIn /></TButton>
                 </li>
             </Navbar>
             <ContainerHeader>
                 <p>Seu app de gestão financeira</p>
                 <h1>Gerencie seus gastos com Wallet, e descomplique sua gestão financeira!</h1>
                 <div className="group-button">
-                    <Button text="Cadastrar" format="solid"><IconSignUp /></Button>
-                    <Button text="Entrar" format="transparent"><IconSignIn /></Button>
+                    <SButton text="Cadastrar" onClick={() => { }}><IconSignUp /></SButton>
+                    <TButton text="Entrar" onClick={() => { }}><IconSignIn /></TButton>
                 </div>
             </ContainerHeader>
             <ContainerList>
