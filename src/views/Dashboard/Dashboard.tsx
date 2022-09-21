@@ -47,7 +47,7 @@ const Dashboard = () => {
             <BalanceTitle>R$ {balance.toLocaleString('pt-br')}
               <div> ,00</div>
             </BalanceTitle>
-            <ActionButton><SButton text="Adicionar valor" onClick={() => setDisplayModal(true)} active><IconReceive /></SButton> </ActionButton>
+            <ActionButton><SButton text="Nova transação" onClick={() => setDisplayModal(true)}><IconReceive /></SButton> </ActionButton>
 
           </Container>
           <ContainerTable>
