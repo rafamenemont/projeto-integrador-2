@@ -1,4 +1,4 @@
-export class Fetch {
+export class Fetch<T> {
     private _url: string
     constructor(url: string) {
         this._url = url
@@ -12,7 +12,7 @@ export class Fetch {
         )
     }
 
-    async post(body: any) {
+    async post(body: T) {
         return await fetch(this._url, { method: "POST", body: JSON.stringify(body) }).then(
             async response => { return await response.json() }
         ).catch(
