@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { SButton, TButton } from "../../../components/Button/button"
+import { SButton, TButton } from "../../../Components/Button/button"
 import { Input } from "../../../Components/Input/input"
 import { GroupBtn, IconCancel, IconClose, IconConfirm, IconPay, IconReceive, IconTrash, IconWallet, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalRow, ModalShadow } from "./style"
 

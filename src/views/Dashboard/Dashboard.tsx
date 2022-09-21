@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SButton } from "../../components/Button/button";
+import { SButton } from "../../Components/Button/button";
 import MenuAndHeader from "../menu-and-header/MenuAndHeader";
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import { useState } from "react";
@@ -16,50 +16,50 @@ const Dashboard = () => {
 
   var heading = ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'];
   var body =
-      [
-        ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
-        ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
-        ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
-      ];
+    [
+      ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
+      ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
+      ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
+    ];
 
-      const tableRow  = (row: string[]) => {
-        return (
-          <StyledRow onClick={() => setDisplayEditModal(true)}>
-            {row.map(val => <div>{val}</div>)}
-          </StyledRow>
-        )
-      }
+  const tableRow = (row: string[]) => {
+    return (
+      <StyledRow onClick={() => setDisplayEditModal(true)}>
+        {row.map(val => <div>{val}</div>)}
+      </StyledRow>
+    )
+  }
 
   return (
     <>
-    {displayModal && <ModalNewPay onClick={() => setDisplayModal(false)} />}
-    {displayEditModal && <ModalAlterPay onClick={() => setDisplayEditModal(false)} />}
+      {displayModal && <ModalNewPay onClick={() => setDisplayModal(false)} />}
+      {displayEditModal && <ModalAlterPay onClick={() => setDisplayEditModal(false)} />}
       <MenuAndHeader>
         <StyledTablesContainer>
           <SuperiorMenu>
             <HelloTitle>
               Olá Usuario,
-            <h2>Bem vindo👋</h2>
+              <h2>Bem vindo👋</h2>
             </HelloTitle>
           </SuperiorMenu>
-      <Container>
-        Saldo
-      <BalanceTitle>R$ {balance.toLocaleString('pt-br')}
-      <div> ,00</div>
-        </BalanceTitle>
-      <ActionButton><SButton text="Adicionar valor" onClick={() => setDisplayModal(true)} active><IconReceive /></SButton> </ActionButton>
+          <Container>
+            Saldo
+            <BalanceTitle>R$ {balance.toLocaleString('pt-br')}
+              <div> ,00</div>
+            </BalanceTitle>
+            <ActionButton><SButton text="Adicionar valor" onClick={() => setDisplayModal(true)} active><IconReceive /></SButton> </ActionButton>
 
-      </Container>
-      <ContainerTable>
-        <StyledTable>
-            <StyledHead>
-                    {heading.map(head => <div>{head}</div>)}
-            </StyledHead>
-            <StyledBody>
-                {body.map(row => tableRow(row) )}
-            </StyledBody>
-        </StyledTable>
-      </ContainerTable>
+          </Container>
+          <ContainerTable>
+            <StyledTable>
+              <StyledHead>
+                {heading.map(head => <div>{head}</div>)}
+              </StyledHead>
+              <StyledBody>
+                {body.map(row => tableRow(row))}
+              </StyledBody>
+            </StyledTable>
+          </ContainerTable>
         </StyledTablesContainer>
       </MenuAndHeader>
     </>
