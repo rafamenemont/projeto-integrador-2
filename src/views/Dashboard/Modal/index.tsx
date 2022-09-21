@@ -27,7 +27,7 @@ export const ModalNewPay: React.FC<StyledModalProps> = ({ onClick }) => {
                     </ModalRow>
                     <ModalRow>
                         <GroupBtn>
-                            {newPay ? <SButton text="Novo gasto" onClick={handleNewPay} active><IconPay /></SButton> : <SButton text="Receber pagamento" onClick={handleNewPay}><IconReceive /></SButton>}
+                            {newPay ? <SButton text="Receber" onClick={handleNewPay}><IconReceive /></SButton> : <SButton text="Pagar" onClick={handleNewPay} active><IconPay /></SButton>}
                         </GroupBtn>
                     </ModalRow>
                     <IconClose onClick={onClick} />
