@@ -11,7 +11,7 @@ const AppRoutes = () => {
   return (
     <div>
       <Routes>
-        <Route path={'/'} element={<ModalAlterPay />} />
+        <Route path={'/'} element={<ModalNewPay />} />
         <Route path={'/dashboard'} element={<Dashboard />} />
         <Route path={'/login'} element={<FormLogin />} />
         <Route path={'/signUp'} element={<FormSignUp />} />

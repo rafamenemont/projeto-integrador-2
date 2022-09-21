@@ -25,6 +25,13 @@ export const ModalContent = styled.div`
     border-radius: 25px;
 
     background: ${({ theme }) => theme.black};
+
+    @media only screen and (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+
+        overflow-y: auto;
+    }
 `
 
 export const ModalHeader = styled.div`
@@ -78,6 +85,12 @@ export const ModalFooter = styled.div`
 export const GroupBtn = styled.div`
     display: flex;
     gap: 15px;
+
+    @media only screen and (max-width: 768px) {
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
 `
 
 export const IconWallet = styled(IoWalletOutline)`
