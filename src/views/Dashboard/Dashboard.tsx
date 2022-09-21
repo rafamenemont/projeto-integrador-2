@@ -1,9 +1,27 @@
 import styled from "styled-components";
 import MenuAndHeader from "../menu-and-header/MenuAndHeader";
 
+
+
 const Dashboard = () => {
 
   const balance = 5000
+
+  var heading = ['Name', 'City', 'Course'];
+  var body =
+      [['Kapil', 'Jaipur', 'MCA'],
+      ['Aakash', 'Hisar', 'Btech'],
+      ['Mani', 'Ranchi', 'MSc'],
+      ['Yash', 'Udaipur', 'Mtech']
+      ];
+
+      const tableRow  = (row: string[]) => {
+        return (
+          <tr>
+            {row.map(val => <td>{val}</td>)}
+          </tr>
+        )
+      }
 
   return (
     <>
@@ -21,6 +39,18 @@ const Dashboard = () => {
       <div> ,00</div>
         </BalanceTitle>
       </Container>
+      <ContainerTable>
+        <table>
+                <thead>
+                    <tr>
+                        {heading.map(head => <th>{head}</th>)}
+                    </tr>
+                </thead>
+                <tbody>
+                    {body.map(row => tableRow(row) )}
+                </tbody>
+        </table>
+      </ContainerTable>
         </StyledTablesContainer>
       </MenuAndHeader>
     </>
@@ -63,13 +93,26 @@ const SuperiorMenu = styled.div`
 
 const Container = styled.div`
   padding: 32px;
-  height: 380px;
   margin: auto;
   border-radius: 24px;
   background: ${({ theme }) => theme.black};
   flex: 50%;
   width: 50%;
   margin: 0 16px;
+  font-size: 18px;
+  line-height: 1.33333;
+  font-weight: bold;
+  min-width: 380px;
+`;
+
+const ContainerTable = styled.div`
+  padding: 32px;
+  margin: auto;
+  border-radius: 24px;
+  background: ${({ theme }) => theme.black};
+  flex: 50%;
+  width: 100%;
+  margin: 25px 16px;
   font-size: 18px;
   line-height: 1.33333;
   font-weight: bold;

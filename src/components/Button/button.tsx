@@ -5,11 +5,12 @@ interface IButtonProps {
     format: string,
     text: string,
     children?: JSX.Element
+    onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
-export const Button: React.FC<IButtonProps> = ({ format, text, children }) => {
+export const Button: React.FC<IButtonProps> = ({ format, text, children, onClick }) => {
     return (
-        format === "transparent" ? <TransparentButton>{children}{text}</TransparentButton> : <SolidButton>{children}{text}</SolidButton>
+        format === "transparent" ? <TransparentButton onClick={onClick}>{children}{text}</TransparentButton> : <SolidButton onClick={onClick}>{children}{text}</SolidButton>
     )
 }
 
