@@ -12,7 +12,7 @@ export class Fetch {
         )
     }
 
-    async post(body: {}) {
+    async post(body: any) {
         return await fetch(this._url, { method: "POST", body: JSON.stringify(body) }).then(
             async response => { return await response.json() }
         ).catch(
