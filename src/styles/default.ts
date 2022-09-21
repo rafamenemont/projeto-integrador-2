@@ -1,5 +1,6 @@
 const darkerBlack = '#1F212A';
 const black = '#242731';
+const blackOpacity = 'rgba(36, 39, 49, 0.5)';
 const purple = '#6D65D3';
 const blue = '#418AFB';
 const gray = '#242731';
@@ -27,6 +28,7 @@ export const darkTheme = {
   toggleBorder: '#6B8096',
   fontTheme: "'Poppins', sans-serif",
   black,
+  blackOpacity,
   darkerBlack,
   purple,
   blue,

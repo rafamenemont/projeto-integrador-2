@@ -29,7 +29,7 @@ const MenuAndHeader: React.FC<StyledModalProps>  = ({children}) => {
         </div>
       </StyledMenuContainer>
 
-      <StyledContainerPage style={closeMenu ? { minWidth: 'calc(100%-105px)', width: 'calc(100%-105px)' } : { minWidth: 'calc(100%-350px)', width: 'calc(100%-350px)' }}>
+      <StyledContainerPage style={closeMenu ? { minWidth: 'calc(100% - 105px)', width: 'calc(100% - 105px)' } : { minWidth: 'calc(100% - 350px)', width: 'calc(100% - 350px)' }}>
             {children}
         </StyledContainerPage>
     </StyledContainer>

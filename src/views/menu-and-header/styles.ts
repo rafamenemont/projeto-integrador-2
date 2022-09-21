@@ -64,7 +64,7 @@ export const StyledMenuContainer = styled.div`
     box-sizing: border-box;
     cursor: pointer;
     position: absolute;
-    z-index: 99;
+    z-index:1;
     height: 100%;
     width: 100%;
     top: 22px;

@@ -1,18 +1,25 @@
 import styled from "styled-components";
+import { SButton } from "../../components/Button/button";
 import MenuAndHeader from "../menu-and-header/MenuAndHeader";
+import { MdOutlineAttachMoney } from 'react-icons/md';
+import { useState } from "react";
+import { ModalNewPay } from "./Modal";
 
 
 
 const Dashboard = () => {
 
   const balance = 5000
+  const [displayModal, setDisplayModal] = useState<boolean>(false)
 
-  var heading = ['Name', 'City', 'Course'];
+
+  var heading = ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'];
   var body =
-      [['Kapil', 'Jaipur', 'MCA'],
-      ['Aakash', 'Hisar', 'Btech'],
-      ['Mani', 'Ranchi', 'MSc'],
-      ['Yash', 'Udaipur', 'Mtech']
+      [
+        ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
+        ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
+        ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
+        ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
       ];
 
       const tableRow  = (row: string[]) => {
@@ -25,6 +32,7 @@ const Dashboard = () => {
 
   return (
     <>
+    {displayModal && <ModalNewPay onClick={() => setDisplayModal(false)} />}
       <MenuAndHeader>
         <StyledTablesContainer>
           <SuperiorMenu>
@@ -38,17 +46,19 @@ const Dashboard = () => {
       <BalanceTitle>R$ {balance.toLocaleString('pt-br')}
       <div> ,00</div>
         </BalanceTitle>
+      <ActionButton><SButton text="Adicionar valor" onClick={() => setDisplayModal(true)} active><IconReceive /></SButton> </ActionButton>
+
       </Container>
       <ContainerTable>
         <table>
-                <thead>
-                    <tr>
-                        {heading.map(head => <th>{head}</th>)}
-                    </tr>
-                </thead>
-                <tbody>
-                    {body.map(row => tableRow(row) )}
-                </tbody>
+            <thead>
+                <tr>
+                    {heading.map(head => <th>{head}</th>)}
+                </tr>
+            </thead>
+            <tbody>
+                {body.map(row => tableRow(row) )}
+            </tbody>
         </table>
       </ContainerTable>
         </StyledTablesContainer>
@@ -107,17 +117,40 @@ const Container = styled.div`
 
 const ContainerTable = styled.div`
   padding: 32px;
-  margin: auto;
   border-radius: 24px;
   background: ${({ theme }) => theme.black};
-  flex: 50%;
   width: 100%;
-  margin: 25px 16px;
-  font-size: 18px;
+  margin: 25px 0px;
+  font-size: 13px;
   line-height: 1.33333;
-  font-weight: bold;
   min-width: 380px;
+  table {
+    width: 100%;
+  }
+  th{
+    color: #B2B3BD;
+    font-weight: bold;
+  }
+  tr {
+    width: 100%;
+    text-align: center;
+  }
+  thead {
+    margin-bottom: 25px;
+  }
 `;
 
+export const IconReceive = styled(MdOutlineAttachMoney)`
+    font-size: 18px;
+    color: ${({ theme }) => theme.text};
+    margin-left: -5px;
+`
+
+export const ActionButton = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px;
+`
 
 export default Dashboard;

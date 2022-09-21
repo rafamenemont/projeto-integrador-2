@@ -7,6 +7,7 @@ declare module 'styled-components' {
     toggleBorder: string;
     fontTheme: string;
     black: string;
+    blackOpacity: string;
     darkerBlack: string;
     purple: string;
     blue: string;

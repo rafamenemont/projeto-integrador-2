@@ -1,7 +1,7 @@
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import styled from 'styled-components'
 import { useFormik } from "formik";
-import {useEffect, useState} from 'react'
+import { useState } from 'react'
 
 import Input from '../../Components/FormComponents/Input'
 import ButtonsSocial from "../../Components/FormComponents/ButtonsSocial";
@@ -66,17 +66,14 @@ function FormLogin() {
                 <p>Or Login Using</p>
                 <ContainerSocial>
                     <ButtonsSocial
-                        onclick={undefined}
                         backgroundColor='#3b5998'
                         name={<FaFacebookF />}
                     />
                     <ButtonsSocial
-                        onclick={undefined}
                         backgroundColor='#000'
                         name={<FaGithub />}
                     />
                     <ButtonsSocial
-                        onclick={undefined}
                         backgroundColor='#EA4335'
                         name={<FaGoogle />} />
                 </ContainerSocial>

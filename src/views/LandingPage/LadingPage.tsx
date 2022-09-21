@@ -1,9 +1,9 @@
-import { Button } from "../../components/Button/button";
 import { ContainerFooter, ContainerHeader, ContainerList, ContainerPage, IconSignIn, IconSignUp, Navbar } from "./style";
 import LandingPageImg from "../../assets/landing-page.png"
 import LandingPageImgMobile from "../../assets/landing-page-mobile.png"
 import Logo from "../../assets/logo.png"
 import { useNavigate } from "react-router-dom";
+import { SButton, TButton } from "../../components/Button/button";
 
 const LandingPage = () => {
     const navigate = useNavigate();
@@ -16,16 +16,16 @@ const LandingPage = () => {
                     <p>Wallet</p>
                 </li>
                 <li>
-                    <Button text="Cadastrar" onClick={() => navigate('/signUp')} format="solid"><IconSignUp /></Button>
-                    <Button text="Entrar" onClick={() => navigate('/login')} format="transparent"><IconSignIn /></Button>
+                    <SButton text="Cadastrar" onClick={() => navigate('/signUp')} ><IconSignUp /></SButton>
+                    <TButton text="Entrar" onClick={() => navigate('/login')}><IconSignIn /></TButton>
                 </li>
             </Navbar>
             <ContainerHeader>
                 <p>Seu app de gestão financeira</p>
                 <h1>Gerencie seus gastos com Wallet, e descomplique sua gestão financeira!</h1>
                 <div className="group-button">
-                    <Button text="Cadastrar" onClick={() => navigate('/signUp')} format="solid"><IconSignUp /></Button>
-                    <Button text="Entrar" onClick={() => navigate('/login')} format="transparent"><IconSignIn /></Button>
+                    <SButton text="Cadastrar" onClick={() => navigate('/signUp')} ><IconSignUp /></SButton>
+                    <TButton text="Entrar" onClick={() => navigate('/login')}><IconSignIn /></TButton>
                 </div>
             </ContainerHeader>
             <ContainerList>
