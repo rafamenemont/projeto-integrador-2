@@ -3,7 +3,7 @@ import LandingPageImg from "../../assets/landing-page.png"
 import LandingPageImgMobile from "../../assets/landing-page-mobile.png"
 import Logo from "../../assets/logo.png"
 import { useNavigate } from "react-router-dom";
-import { SButton, TButton } from "../../components/Button/button";
+import { SButton, TButton } from "../../Components/Button/button";
 
 const LandingPage = () => {
     const navigate = useNavigate();
