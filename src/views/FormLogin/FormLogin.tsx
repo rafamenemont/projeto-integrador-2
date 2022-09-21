@@ -1,17 +1,19 @@
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import styled from 'styled-components'
 import { useFormik } from "formik";
-import {useState} from 'react'
+import { useState } from 'react'
 
 import Input from '../../Components/FormComponents/Input'
 import ButtonsSocial from "../../Components/FormComponents/ButtonsSocial";
 import ButtonForm from "../../Components/FormComponents/ButtonForm";
 import { loginSchema } from "../../Schema/login";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AuthUtils from "../../util/auth-utils";
 
 function FormLogin() {
 
     const [showErros, setshowErros] = useState(false)
+    const navigate = useNavigate();
 
     const {values, errors, handleChange, handleSubmit} = useFormik({
         initialValues: {
@@ -25,9 +27,14 @@ function FormLogin() {
     })
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        setshowErros(true)
+        redirectToPath()
         handleSubmit(e)
     }
+
+    const redirectToPath = () => {
+        const redirectPath = AuthUtils.getMainPath();
+        navigate(redirectPath);
+    };
 
     return (
         <ContainerForm>
@@ -59,17 +66,14 @@ function FormLogin() {
                 <p>Or Login Using</p>
                 <ContainerSocial>
                     <ButtonsSocial
-                        onclick={undefined}
                         backgroundColor='#3b5998'
                         name={<FaFacebookF />}
                     />
                     <ButtonsSocial
-                        onclick={undefined}
                         backgroundColor='#000'
                         name={<FaGithub />}
                     />
                     <ButtonsSocial
-                        onclick={undefined}
                         backgroundColor='#EA4335'
                         name={<FaGoogle />} />
                 </ContainerSocial>

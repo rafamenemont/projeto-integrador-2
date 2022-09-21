@@ -64,7 +64,7 @@ export const StyledMenuContainer = styled.div`
     box-sizing: border-box;
     cursor: pointer;
     position: absolute;
-    z-index: 99;
+    z-index:1;
     height: 100%;
     width: 100%;
     top: 22px;
@@ -94,6 +94,6 @@ export const StyledContainerPage = styled.div`
   height: 100%;
   background-color: #f1f1f1;
   padding: 0 30px 55px 30px;
-  min-height: calc(100vh - 114px);
+  min-height: 100vh;
   background: ${({ theme }) => theme.darkerBlack};
 `;

@@ -1,24 +1,24 @@
 import React, { useState } from "react"
-import { SButton, TButton } from "../../../Components/Button/button"
+import { SButton, TButton } from "../../../components/Button/button"
 import { Input } from "../../../Components/Input/input"
-import { GroupBtn, IconCancel, IconClose, IconConfirm, IconPay, IconReceive, IconTrash, IconWallet, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalRow } from "./style"
+import { GroupBtn, IconCancel, IconClose, IconConfirm, IconPay, IconReceive, IconTrash, IconWallet, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalRow, ModalShadow } from "./style"
 
-export const ModalNewPay: React.FC = () => {
+interface StyledModalProps {
+    onClick: () => void;
+}
+
+export const ModalNewPay: React.FC<StyledModalProps> = ({ onClick }) => {
     const [newPay, setNewPay] = useState<boolean>(true)
     const [newRec, setNewRec] = useState<boolean>(false)
 
     function handleNewPay() {
-        setNewRec(false)
-        setNewPay(true)
-    }
-
-    function handleNewRec() {
-        setNewPay(false)
-        setNewRec(true)
+        setNewRec(!newRec)
+        setNewPay(!newPay)
     }
 
     return (
         <Modal>
+            <ModalShadow onClick={onClick} />
             <ModalContent>
                 <ModalHeader>
                     <ModalRow>
@@ -27,11 +27,10 @@ export const ModalNewPay: React.FC = () => {
                     </ModalRow>
                     <ModalRow>
                         <GroupBtn>
-                            {newPay ? <SButton text="Novo gasto" onClick={handleNewPay} active><IconPay /></SButton> : <SButton text="Novo gasto" onClick={handleNewPay}><IconPay /></SButton>}
-                            {newRec ? <SButton text="Receber pagamento" onClick={handleNewRec} active><IconReceive /></SButton> : <SButton text="Receber pagamento" onClick={handleNewRec}><IconReceive /></SButton>}
+                            {newPay ? <SButton text="Novo gasto" onClick={handleNewPay} active><IconPay /></SButton> : <SButton text="Receber pagamento" onClick={handleNewPay}><IconReceive /></SButton>}
                         </GroupBtn>
                     </ModalRow>
-                    <IconClose />
+                    <IconClose onClick={onClick} />
                 </ModalHeader>
                 <ModalBody>
                     <Input type="date" placeholder="Data da transação" label="Data" />
@@ -43,7 +42,7 @@ export const ModalNewPay: React.FC = () => {
                 </ModalBody>
                 <ModalFooter>
                     <GroupBtn>
-                        <TButton text="Cancelar" onClick={() => { }}><IconCancel /></TButton>
+                        <TButton text="Cancelar" onClick={onClick}><IconCancel /></TButton>
                         <SButton text="Confirmar" onClick={() => { }}><IconConfirm /></SButton>
                     </GroupBtn>
                 </ModalFooter>
@@ -52,16 +51,17 @@ export const ModalNewPay: React.FC = () => {
     )
 }
 
-export const ModalAlterPay: React.FC = () => {
+export const ModalAlterPay: React.FC<StyledModalProps> = ({ onClick }) => {
     return (
         <Modal>
+            <ModalShadow onClick={onClick} />
             <ModalContent>
                 <ModalHeader>
                     <ModalRow>
                         <IconWallet />
                         <h1>Editar Transação</h1>
                     </ModalRow>
-                    <IconClose />
+                    <IconClose onClick={onClick} />
                 </ModalHeader>
                 <ModalBody>
                     <Input type="date" placeholder="Data da transação" label="Data" />
@@ -74,7 +74,7 @@ export const ModalAlterPay: React.FC = () => {
                 <ModalFooter>
                     <GroupBtn>
                         <TButton text="Excluir" onClick={() => { }}><IconTrash /></TButton>
-                        <TButton text="Cancelar" onClick={() => { }}><IconCancel /></TButton>
+                        <TButton text="Cancelar" onClick={onClick}><IconCancel /></TButton>
                         <SButton text="Atualizar" onClick={() => { }}><IconConfirm /></SButton>
                     </GroupBtn>
                 </ModalFooter>

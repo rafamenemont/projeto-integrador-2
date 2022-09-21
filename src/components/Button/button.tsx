@@ -4,8 +4,8 @@ import styled from "styled-components"
 interface IButtonProps {
     text: string,
     active?: boolean,
-    onClick?: () => void,
     children?: JSX.Element
+    onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 export const TButton: React.FC<IButtonProps> = ({ text, active, onClick, children }) => {

@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 interface Props {
     name: JSX.Element;
-    onclick: any;
+    onClick?: React.MouseEventHandler<HTMLButtonElement>
     backgroundColor: string;
   }
 
 function ButtonsSocial(props:Props) {
   return (
-    <Button onClick={props.onclick} Color={props.backgroundColor}>{props.name}</Button>
+    <Button onClick={props.onClick} Color={props.backgroundColor}>{props.name}</Button>
   )
 }
 

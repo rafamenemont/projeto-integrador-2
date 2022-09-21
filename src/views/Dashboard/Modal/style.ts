@@ -15,14 +15,25 @@ export const Modal = styled.div`
     width: 100vw;
     height: 100vh;
 
+    z-index: 5;
+
     background: ${({ theme }) => theme.blackOpacity};
 `
+export const ModalShadow = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -4;
+`;
 
 export const ModalContent = styled.div`
     width: 1000px;
     height: fit-content;
     padding: 32px;
     border-radius: 25px;
+    z-index: 5;
 
     background: ${({ theme }) => theme.black};
 
