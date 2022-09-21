@@ -5,19 +5,28 @@ import { MdOutlineAttachMoney, MdOutlineMoneyOffCsred } from 'react-icons/md';
 
 export const Modal = styled.div`
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 
     position: fixed;
     top: 0;
     left: 0;
 
+    overflow-y: auto;
+
     width: 100vw;
     height: 100vh;
+    min-height: fit-content;
+
+    padding: 25px 0;
 
     z-index: 5;
 
     background: ${({ theme }) => theme.blackOpacity};
+
+    @media only screen and (max-width: 768px) {
+        padding: 0;
+    }
 `
 export const ModalShadow = styled.div`
   position: fixed;
@@ -38,10 +47,8 @@ export const ModalContent = styled.div`
     background: ${({ theme }) => theme.black};
 
     @media only screen and (max-width: 768px) {
+        border-radius: 0px;
         width: 100%;
-        height: 100%;
-
-        overflow-y: auto;
     }
 `
 
@@ -98,8 +105,9 @@ export const GroupBtn = styled.div`
     gap: 15px;
 
     @media only screen and (max-width: 768px) {
+        width: 100%;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: space-between;
         flex-wrap: wrap;
     }
 `
