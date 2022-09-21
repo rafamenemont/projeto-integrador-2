@@ -3,36 +3,37 @@ import { SButton } from "../../components/Button/button";
 import MenuAndHeader from "../menu-and-header/MenuAndHeader";
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import { useState } from "react";
-import { ModalNewPay } from "./Modal";
+import { ModalAlterPay, ModalNewPay } from "./Modal";
 
 
 
 const Dashboard = () => {
 
   const balance = 5000
-  const [displayModal, setDisplayModal] = useState<boolean>(false)
+  const [displayModal, setDisplayModal] = useState<boolean>(false);
+  const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
 
 
   var heading = ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'];
   var body =
       [
-        ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
-        ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
-        ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
-        ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
+        ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
+        ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
+        ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
       ];
 
       const tableRow  = (row: string[]) => {
         return (
-          <tr>
-            {row.map(val => <td>{val}</td>)}
-          </tr>
+          <StyledRow onClick={() => setDisplayEditModal(true)}>
+            {row.map(val => <div>{val}</div>)}
+          </StyledRow>
         )
       }
 
   return (
     <>
     {displayModal && <ModalNewPay onClick={() => setDisplayModal(false)} />}
+    {displayEditModal && <ModalAlterPay onClick={() => setDisplayEditModal(false)} />}
       <MenuAndHeader>
         <StyledTablesContainer>
           <SuperiorMenu>
@@ -50,16 +51,14 @@ const Dashboard = () => {
 
       </Container>
       <ContainerTable>
-        <table>
-            <thead>
-                <tr>
-                    {heading.map(head => <th>{head}</th>)}
-                </tr>
-            </thead>
-            <tbody>
+        <StyledTable>
+            <StyledHead>
+                    {heading.map(head => <div>{head}</div>)}
+            </StyledHead>
+            <StyledBody>
                 {body.map(row => tableRow(row) )}
-            </tbody>
-        </table>
+            </StyledBody>
+        </StyledTable>
       </ContainerTable>
         </StyledTablesContainer>
       </MenuAndHeader>
@@ -78,6 +77,37 @@ const StyledTablesContainer = styled.div`
 const HelloTitle = styled.div`
   font-size: 18px;
   line-height: 1.33333;
+`;
+
+const StyledTable = styled.div`
+`;
+
+const StyledBody = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+`;
+
+const StyledRow = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border-top: 1px solid ${({ theme }) => theme.toggleBorder};
+  padding: 13px 0px;
+  &:hover {
+    background-color: #dddddd7f;
+  }
+`;
+
+
+const StyledHead = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-bottom: 13px;
+  margin-bottom: 20px;
+  color: #B2B3BD;
 `;
 
 const BalanceTitle = styled.div`
@@ -136,7 +166,10 @@ const ContainerTable = styled.div`
     text-align: center;
   }
   thead {
-    margin-bottom: 25px;
+    tr {
+      margin-bottom: 25px;
+      border: 1px solid #6B8096;
+    }
   }
 `;
 

@@ -12,13 +12,8 @@ export const ModalNewPay: React.FC<StyledModalProps> = ({ onClick }) => {
     const [newRec, setNewRec] = useState<boolean>(false)
 
     function handleNewPay() {
-        setNewRec(false)
-        setNewPay(true)
-    }
-
-    function handleNewRec() {
-        setNewPay(false)
-        setNewRec(true)
+        setNewRec(!newRec)
+        setNewPay(!newPay)
     }
 
     return (
@@ -32,8 +27,7 @@ export const ModalNewPay: React.FC<StyledModalProps> = ({ onClick }) => {
                     </ModalRow>
                     <ModalRow>
                         <GroupBtn>
-                            {newPay ? <SButton text="Novo gasto" onClick={handleNewPay} active><IconPay /></SButton> : <SButton text="Novo gasto" onClick={handleNewPay}><IconPay /></SButton>}
-                            {newRec ? <SButton text="Receber pagamento" onClick={handleNewRec} active><IconReceive /></SButton> : <SButton text="Receber pagamento" onClick={handleNewRec}><IconReceive /></SButton>}
+                            {newPay ? <SButton text="Novo gasto" onClick={handleNewPay} active><IconPay /></SButton> : <SButton text="Receber pagamento" onClick={handleNewPay}><IconReceive /></SButton>}
                         </GroupBtn>
                     </ModalRow>
                     <IconClose onClick={onClick} />
@@ -57,16 +51,17 @@ export const ModalNewPay: React.FC<StyledModalProps> = ({ onClick }) => {
     )
 }
 
-export const ModalAlterPay: React.FC = () => {
+export const ModalAlterPay: React.FC<StyledModalProps> = ({ onClick }) => {
     return (
         <Modal>
+            <ModalShadow onClick={onClick} />
             <ModalContent>
                 <ModalHeader>
                     <ModalRow>
                         <IconWallet />
                         <h1>Editar Transação</h1>
                     </ModalRow>
-                    <IconClose />
+                    <IconClose onClick={onClick} />
                 </ModalHeader>
                 <ModalBody>
                     <Input type="date" placeholder="Data da transação" label="Data" />
@@ -79,7 +74,7 @@ export const ModalAlterPay: React.FC = () => {
                 <ModalFooter>
                     <GroupBtn>
                         <TButton text="Excluir" onClick={() => { }}><IconTrash /></TButton>
-                        <TButton text="Cancelar" onClick={() => { }}><IconCancel /></TButton>
+                        <TButton text="Cancelar" onClick={onClick}><IconCancel /></TButton>
                         <SButton text="Atualizar" onClick={() => { }}><IconConfirm /></SButton>
                     </GroupBtn>
                 </ModalFooter>
