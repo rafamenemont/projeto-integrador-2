@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react"
 import { SButton, TButton } from "../../../Components/Button/button"
 import { Input } from "../../../Components/Input/input"
-import { baseURL, Fetch } from "../../../modules/fetch";
+import { Fetch } from "../../../modules/fetch";
 import { GroupBtn, IconCancel, IconClose, IconConfirm, IconPay, IconReceive, IconTrash, IconWallet, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalRow, ModalShadow } from "./style"
 
 interface StyledModalProps {
@@ -74,7 +74,7 @@ export const ModalNewPay: React.FC<StyledModalProps> = ({ onClick }) => {
     };
 
     async function handleNewTransaction() {
-        const fetchClass = new Fetch<INewTransaction>(baseURL + "Transaction/insert.php");
+        const fetchClass = new Fetch<INewTransaction>("Transaction/insert.php");
         const body = {
             "user_id": "1",
             "type": newPay ? "Gasto" : "Recebimento",
@@ -157,7 +157,7 @@ export const ModalAlterPay: React.FC<StyledModalProps> = ({ onClick }) => {
     };
 
     async function handleAlterTransaction() {
-        const fetchClass = new Fetch<IAlterTransaction>(baseURL + "Transaction/update.php");
+        const fetchClass = new Fetch<IAlterTransaction>("Transaction/update.php");
         const body = {
             "transaction_id": "7",
             "date": date,
@@ -172,7 +172,7 @@ export const ModalAlterPay: React.FC<StyledModalProps> = ({ onClick }) => {
     }
 
     async function handleDeleteTransaction() {
-        const fetchClass = new Fetch<IDeleteTransaction>(baseURL + "Transaction/delete.php");
+        const fetchClass = new Fetch<IDeleteTransaction>("Transaction/delete.php");
         const body = {
             "transaction_id": "7"
         }

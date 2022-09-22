@@ -1,8 +1,8 @@
-export const baseURL = "http://localhost/walletServer/api/routes/"
+const baseURL = "http://localhost/walletServer/api/routes/"
 export class Fetch<T> {
     private _url: string
     constructor(url: string) {
-        this._url = url
+        this._url = baseURL + url
     }
 
     async get() {
