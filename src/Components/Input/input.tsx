@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from "react";
+import React, { InputHTMLAttributes, MutableRefObject } from "react";
 import styled from "styled-components";
 
 interface IInput extends InputHTMLAttributes<HTMLInputElement> {

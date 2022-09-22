@@ -1,3 +1,4 @@
+export const baseURL = "http://localhost/walletServer/api/routes/"
 export class Fetch<T> {
     private _url: string
     constructor(url: string) {
