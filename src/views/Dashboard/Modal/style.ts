@@ -161,3 +161,20 @@ export const IconTrash = styled(IoTrashOutline)`
     color: ${({ theme }) => theme.text};
     margin-left: -5px;
 `
+
+export const GroupSelect = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-basis: 47.5%;
+    gap: 10px;
+    padding-bottom: 10px;
+
+    > label {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    @media only screen and (max-width: 768px) {
+        flex-basis: 100%;
+    }
+`
