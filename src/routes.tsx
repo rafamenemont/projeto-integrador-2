@@ -11,6 +11,7 @@ const AppRoutes = () => {
     <div>
       <Routes>
         <Route path={'/'} element={<LandingPage />} />
+        <Route path={'/landing-page'} element={<LandingPage />} />
         <Route path={'/dashboard'} element={<Dashboard />} />
         <Route path={'/login'} element={<FormLogin />} />
         <Route path={'/signUp'} element={<FormSignUp />} />

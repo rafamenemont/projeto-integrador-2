@@ -2,82 +2,152 @@ import styled from "styled-components";
 import { SButton } from "../../Components/Button/button";
 import MenuAndHeader from "../menu-and-header/MenuAndHeader";
 import { MdOutlineAttachMoney } from 'react-icons/md';
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { ModalAlterPay, ModalNewPay } from "./Modal";
-import { Fetch } from "../../modules/fetch";
+import dayjs from "dayjs";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
+} from 'chart.js';
+import AvatarImg from '../../assets/avatar-4.png'
 
-interface IData {
-  id: string,
-  type: string,
+export interface IData {
+  id?: string,
+  type?: string,
+  transaction_id?: string,
   date: string,
-  cost: string,
+  cost: number,
   origin: string,
   description: string,
   adress: string,
   payment: string
 }
 
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend
+);
+
 const Dashboard = () => {
   const [balance, setBalance] = useState<number>(0)
-  const [cents, setCents] = useState<number>(0)
+  const [cents, setCents] = useState<string>('00')
   const [displayModal, setDisplayModal] = useState<boolean>(false);
   const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
   const [editId, setEditId] = useState<number>(0);
 
-  const [list, setList] = useState<Array<string[]>>([])
+  const [list, setList] = useState<IData[]>([])
+  const [chosenUpdate, setChosenUpdate] = useState<IData>()
 
-  var heading = ['ID', 'Tipo', 'Data', 'Valor', 'Origem', 'Descrição', 'Endereço', 'Forma de pagamento'];
+  var heading = [ 'Data', 'Valor', 'Origem', 'Descrição', 'Endereço', 'Forma de pagamento'];
+
+  const loadList = async () => {
+    const listInStorage = await localStorage.getItem('paymentsList')
+
+    console.log(listInStorage)
+  }
+
+  const listInStorage = localStorage.getItem('paymentsList')
+
 
   useEffect(() => {
-    const loadList = async () => {
-      const fetchClass = new Fetch<{}>("Transaction/index.php?id=1")
-      const data = await fetchClass.get()
-      const newList: Array<string[]> = []
-
-      let newBalance = 0
-      let formatValue = ['']
-
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].type == "Gasto") {
-          newBalance -= parseFloat(data[i].cost.replace("R$", "").replace(",", "."))
-        } else {
-          newBalance += parseFloat(data[i].cost.replace("R$", "").replace(",", "."))
-        }
-      }
-
-      formatValue = newBalance.toString().split(".")
-
-      data.forEach((item: IData) => newList.push([item.id.toString(), item.type, item.date, item.cost, item.origin, item.description, item.adress, item.payment]))
-
-      setList(newList)
-      setBalance(parseInt(formatValue[0]))
-      setCents(parseInt(formatValue[1]))
+    if(listInStorage){
+      let newArray = listInStorage && JSON.parse(listInStorage)
+      setList(newArray.sort((a: IData, b: IData) => {
+        return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+      }))
+      let sum = newArray
+      .reduce((previousValue: { cost: number } | number, currentValue: { cost: number; }) => {
+        const previus = typeof previousValue === 'number'? previousValue : previousValue.cost;
+        return previus + currentValue.cost;
+      }, 0)
+      .toFixed(2);
+      console.log(sum)
+      setBalance(sum.split('.')[0].replaceAll(',', ''))
+      setCents(sum.split('.')[1])
+    } else {
+      localStorage.setItem('paymentsList', "[]")
     }
+  }, [listInStorage])
 
+  useEffect(() => {
     loadList()
   }, [list])
 
-  useCallback(() => {
-    setList([])
-  }, [displayModal, displayEditModal])
 
-  const tableRow = (row: string[], id: number) => {
+  const tableRow = (row: IData, id: number) => {
     function handleEditModal() {
       setEditId(id)
       setDisplayEditModal(true)
     }
 
     return (
-      <StyledRow onClick={handleEditModal}>
-        {row.map(val => <div>{val}</div>)}
+      <StyledRow key={`row-${id}`} onClick={() => {
+        setChosenUpdate(row)
+        handleEditModal()
+        }}>
+        <div>{dayjs(row.date).format('DD/MM')}</div>
+        <div>{row.cost}</div>
+        <div>{row.origin}</div>
+        <div>{row.description}</div>
+        <div>{row.adress}</div>
+        <div>{row.payment}</div>
       </StyledRow>
     )
   }
 
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      title: {
+        display: false,
+        text: 'Chart.js Line Chart',
+      },
+    },
+  };
+
+  const labels = list.sort((a: IData, b: IData) => {
+    return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
+  }).map(item => dayjs(item.date).format('DD/MM'));
+  const dataSum = list.map((item, index) => {
+    let sum: number = list.slice(0, index+1).reduce((previousValue: { cost: number } | number, currentValue: { cost: number; }) => {
+      const previus = typeof previousValue === 'number'? previousValue : previousValue.cost;
+      return previus + currentValue.cost;
+    }, 0)
+    return sum
+  });
+
+  const data = {
+  labels,
+  datasets: [
+    {
+      fill: true,
+      label: 'Dataset 2',
+      data: dataSum,
+      borderColor: 'rgb(53, 162, 235)',
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+  ],
+};
+
   return (
     <>
       {displayModal && <ModalNewPay onClick={() => setDisplayModal(false)} />}
-      {displayEditModal && <ModalAlterPay list={list} id={editId} onClick={() => setDisplayEditModal(false)} />}
+      {displayEditModal && chosenUpdate && <ModalAlterPay list={list} chosenUpdate={chosenUpdate} id={editId} onClick={() => setDisplayEditModal(false)} />}
       <MenuAndHeader>
         <StyledTablesContainer>
           <SuperiorMenu>
@@ -85,19 +155,26 @@ const Dashboard = () => {
               Olá Usuario,
               <h2>Bem vindo👋</h2>
             </HelloTitle>
+            <img src={AvatarImg} alt={'burger-menu'} />
           </SuperiorMenu>
+          <div style={{display: 'flex'}}>
           <Container>
             Saldo
             <BalanceTitle>R$ {balance.toLocaleString('pt-br')}
-              <div> ,{cents < 10 ? cents.toString() + "0" : cents.toString()}</div>
+              <div> ,{cents}</div>
             </BalanceTitle>
             <ActionButton><SButton text="Nova transação" onClick={() => setDisplayModal(true)}><IconReceive /></SButton> </ActionButton>
 
           </Container>
+          <Container style={{width: 'unset', minWidth: '300px', display: 'flex', alignItems: 'center',
+        }}>
+          <Line options={options} data={data} />
+          </Container>
+          </div>
           <ContainerTable>
             <StyledTable>
               <StyledHead>
-                {heading.map(head => <div>{head}</div>)}
+                {heading.map((head, index) => <div key={`head-${index}`}>{head}</div>)}
               </StyledHead>
               <StyledBody>
                 {list.map((row, key) => tableRow(row, key))}
@@ -142,6 +219,9 @@ const StyledRow = styled.div`
   &:hover {
     background-color: #dddddd7f;
   }
+  div {
+    width: 15%;
+  }
 `;
 
 
@@ -152,6 +232,9 @@ const StyledHead = styled.div`
   padding-bottom: 13px;
   margin-bottom: 20px;
   color: #B2B3BD;
+  div {
+    width: 15%;
+  }
 `;
 
 const BalanceTitle = styled.div`
@@ -173,6 +256,10 @@ const SuperiorMenu = styled.div`
   margin: 0 -16px;
   display: flex;
   padding: 40px 0;
+  justify-content: space-between;
+  img {
+    height: 60px; 
+  }
 `;
 
 const Container = styled.div`

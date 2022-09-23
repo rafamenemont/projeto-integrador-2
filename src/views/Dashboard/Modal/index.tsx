@@ -3,6 +3,7 @@ import Select from 'react-select'
 import { SButton, TButton } from "../../../Components/Button/button"
 import { Input } from "../../../Components/Input/input"
 import { Fetch } from "../../../modules/fetch";
+import { IData } from "../Dashboard";
 import { GroupBtn, GroupSelect, IconCancel, IconClose, IconConfirm, IconPay, IconReceive, IconTrash, IconWallet, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalRow, ModalShadow } from "./style"
 
 interface StyledModalNewProps {
@@ -11,7 +12,8 @@ interface StyledModalNewProps {
 interface StyledModalEditProps {
     onClick: () => void;
     id: number;
-    list: Array<string[]>
+    list: Array<IData>;
+    chosenUpdate: IData;
 }
 
 interface INewTransaction {
@@ -49,11 +51,6 @@ export const ModalNewPay: React.FC<StyledModalNewProps> = ({ onClick }) => {
     const [description, setDescription] = useState<string>('')
     const [adress, setAdress] = useState<string>('')
     const [payment, setPayment] = useState<string>('')
-
-    const originOptions = [
-        { value: 'Nacional', label: 'Nacional' },
-        { value: 'Internacional', label: 'Internacional' }
-    ]
 
     const paymentOptions = [
         { value: 'Dinheiro', label: 'Dinheiro' },
@@ -113,7 +110,7 @@ export const ModalNewPay: React.FC<StyledModalNewProps> = ({ onClick }) => {
     }
 
     const handleChangeOrigin = (event: any) => {
-        setOrigin(event.value)
+        setOrigin(event.currentTarget.value)
     }
 
     const handleChangeDescription = (event: React.FormEvent<HTMLInputElement>) => {
@@ -133,22 +130,53 @@ export const ModalNewPay: React.FC<StyledModalNewProps> = ({ onClick }) => {
         setNewPay(!newPay)
     }
 
+    const convertNumber = (value: string) =>{
+        if(value.includes(',') && value.includes('.')){
+            return parseFloat(
+                value
+                    .replaceAll('.', '')
+                    .replaceAll(',', '.')
+                    .replace(/[^0-9.-]+/g, '')
+                );
+        }
+        if(value.includes(',')){
+            return parseFloat(
+                value
+                    .replaceAll(',', '.')
+                    .replace(/[^0-9.-]+/g, '')
+                );
+        } else {
+            return parseFloat(
+                value
+                    .replace(/[^0-9.-]+/g, '')
+                );
+        }
+        
+
+    }
+
+  const listInStorage = localStorage.getItem('paymentsList');
+
+
     async function handleNewTransaction() {
-        const fetchClass = new Fetch<INewTransaction>("Transaction/insert.php");
+        // const fetchClass = new Fetch<INewTransaction>("Transaction/insert.php");
+        let newArray = listInStorage && JSON.parse(listInStorage)
         const body = {
-            "user_id": "1",
+            "id": newArray.length ?? 0,
             "type": newPay ? "Gasto" : "Recebimento",
-            "date": date,
-            "cost": cost,
+            "date": date ? date : new Date(),
+            "cost": newPay ? convertNumber(cost)*-1 : convertNumber(cost),
             "payment": payment,
             "origin": origin,
             "description": description,
             "adress": adress
         }
-
-        const response = await fetchClass.post(body)
-
-        console.log(response.data)
+        // const response = await fetchClass.post(body)
+        // console.log(response.data)
+        newArray.push(body)
+        console.log(newArray)
+        localStorage.setItem('paymentsList', JSON.stringify(newArray))
+        onClick()
     }
 
     return (
@@ -162,17 +190,16 @@ export const ModalNewPay: React.FC<StyledModalNewProps> = ({ onClick }) => {
                     </ModalRow>
                     <ModalRow>
                         <GroupBtn>
-                            {newPay ? <SButton text="Receber" onClick={handleNewPay}><IconReceive /></SButton> : <SButton text="Pagar" onClick={handleNewPay}><IconPay /></SButton>}
+                            {newPay ? <SButton text="Recebido" onClick={handleNewPay}><IconReceive /></SButton> : <SButton text="Pagar" onClick={handleNewPay}><IconPay /></SButton>}
                         </GroupBtn>
                     </ModalRow>
                     <IconClose onClick={onClick} />
                 </ModalHeader>
                 <ModalBody>
                     <Input onChange={handleChangeDate} type="date" placeholder="Data da transação" label="Data" />
-                    <Input onChange={handleChangeCost} type="text" placeholder="R$ 99,99" label={newPay ? "Gasto" : "A receber"} />
+                    <Input onChange={handleChangeCost} type="text" placeholder="R$ 99,99" label={newPay ? "Gasto" : "Recebido"} />
                     <GroupSelect>
-                        <label>Origem</label>
-                        <Select placeholder="Selecione a origem..." styles={selectStyles} onChange={handleChangeOrigin} options={originOptions} />
+                        <Input onChange={handleChangeOrigin} type="text" placeholder="Origem" label={"Origem"} />
                     </GroupSelect>
                     <Input onChange={handleChangeDescription} type="text" placeholder={newPay ? "Farmácia" : "Salário"} label="Tipo" />
                     <Input onChange={handleChangeAdress} type="text" placeholder="Endereço" label="Endereço" />
@@ -192,8 +219,8 @@ export const ModalNewPay: React.FC<StyledModalNewProps> = ({ onClick }) => {
     )
 }
 
-export const ModalAlterPay: React.FC<StyledModalEditProps> = ({ onClick, id, list }) => {
-    const [itemId, setItemId] = useState<string>('')
+export const ModalAlterPay: React.FC<StyledModalEditProps> = ({ onClick, id, list, chosenUpdate }) => {
+    const [itemId, setItemId] = useState<number>()
     const [date, setDate] = useState<string>('')
     const [cost, setCost] = useState<string>('')
     const [origin, setOrigin] = useState<string>('')
@@ -280,38 +307,70 @@ export const ModalAlterPay: React.FC<StyledModalEditProps> = ({ onClick, id, lis
     }
 
     useEffect(() => {
-        const date = list[id][2].split("/")
-        setItemId(list[id][0])
-        setDate(`${date[2]}-${date[1]}-${date[0]}`)
-        setCost(list[id][3])
-        setOrigin(list[id][4])
-        setPayment(list[id][7])
-        setDescription(list[id][5])
-        setAdress(list[id][6])
+        setDate(chosenUpdate.date ?? "")
+        setCost(chosenUpdate.cost?.toString() ?? "0")
+        setOrigin(chosenUpdate.origin  ?? "")
+        setPayment(chosenUpdate.payment  ?? "")
+        setDescription(chosenUpdate.description  ?? "")
+        setAdress(chosenUpdate.adress ?? "")
     }, [])
 
+
+    const convertNumber = (value: string) =>{
+        if(value.includes(',') && value.includes('.')){
+            return parseFloat(
+                value
+                    .replaceAll('.', '')
+                    .replaceAll(',', '.')
+                    .replace(/[^0-9.-]+/g, '')
+                );
+        }
+        if(value.includes(',')){
+            return parseFloat(
+                value
+                    .replaceAll(',', '.')
+                    .replace(/[^0-9.-]+/g, '')
+                );
+        } else {
+            return parseFloat(
+                value
+                    .replace(/[^0-9.-]+/g, '')
+                );
+        }
+        
+
+    }
+
     async function handleAlterTransaction() {
-        const fetchClass = new Fetch<IAlterTransaction>("Transaction/update.php");
+        // const fetchClass = new Fetch<IAlterTransaction>("Transaction/update.php");
         const body = {
-            "transaction_id": itemId,
+            "id": chosenUpdate.id,
             "date": date,
-            "cost": cost,
+            "cost": convertNumber(cost),
             "payment": payment,
             "origin": origin,
             "description": description,
             "adress": adress
         }
 
-        console.log(await fetchClass.post(body))
+        let newArray = list.map(obj => {
+            if (obj.id === chosenUpdate.id) {
+              return body
+            }
+            return obj;
+          });;
+        console.log(newArray)
+        localStorage.setItem('paymentsList', JSON.stringify(newArray))
+        onClick()
     }
 
     async function handleDeleteTransaction() {
-        const fetchClass = new Fetch<IDeleteTransaction>("Transaction/delete.php");
-        const body = {
-            "transaction_id": itemId
-        }
-
-        console.log(await fetchClass.post(body))
+        let newArray = list.filter(obj => {
+            return obj.id !== chosenUpdate.id
+          });
+        console.log(newArray)
+        localStorage.setItem('paymentsList', JSON.stringify(newArray))
+        onClick()
     }
 
     return (

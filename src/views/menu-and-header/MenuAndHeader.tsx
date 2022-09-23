@@ -12,8 +12,22 @@ interface StyledModalProps {
   children: React.ReactElement
 }
 
+// interface ITypeIconsWithLinks {
+//   icon: JSX.Element;
+//   text: string;
+//   pathRedirected: string;
+//   plus?: boolean;
+//   name?: string;
+// }
+
 const MenuAndHeader: React.FC<StyledModalProps>  = ({children}) => {
   const [closeMenu, setCloseMenu] = useState<boolean>(true);
+
+  // const allMenuItems: ITypeIconsWithLinks[] = [
+  //   { icon: <HouseIconSvg />, text: t('mainMenu.homeScreen'), pathRedirected: '/dashboard' },
+  //   { icon: <DollarIconSvg />, text: t('mainMenu.financial'), pathRedirected: '/financeiro', name: 'Financeiro' },
+  //   { icon: <PlantIconSvg />, text: t('mainMenu.agricultural'), pathRedirected: '/agricola', name: 'Agrícola' },
+  // ];
 
   return (
     <StyledContainer>

@@ -32,6 +32,7 @@ export const StyledMenuContainer = styled.div`
   align-self: center;
   justify-content: center;
   border-color: rgba(228, 228, 228, 0.1);
+  display: none;
   svg {
     min-width: 30px;
     min-height: 30px;
@@ -78,15 +79,6 @@ export const StyledMenuContainer = styled.div`
     margin-left: 249px;
   }
 
-  /* .spinner {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    position: absolute;
-    height: 3px;
-    width: 100%;
-    background-color: #fff;
-  } */
-
 `;
 
 export const StyledContainerPage = styled.div`
@@ -96,4 +88,5 @@ export const StyledContainerPage = styled.div`
   padding: 0 30px 55px 30px;
   min-height: 100vh;
   background: ${({ theme }) => theme.darkerBlack};
+  margin: auto;
 `;
