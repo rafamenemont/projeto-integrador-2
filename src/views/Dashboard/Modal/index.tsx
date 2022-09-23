@@ -7,6 +7,7 @@ import { GroupBtn, GroupSelect, IconCancel, IconClose, IconConfirm, IconPay, Ico
 
 interface StyledModalNewProps {
     onClick: () => void;
+    id: string | null;
 }
 interface StyledModalEditProps {
     onClick: () => void;
@@ -15,7 +16,7 @@ interface StyledModalEditProps {
 }
 
 interface INewTransaction {
-    "user_id": string;
+    "user_id": string | null;
     "type": string;
     "date": string;
     "cost": string;
@@ -39,7 +40,7 @@ interface IDeleteTransaction {
     "transaction_id": string;
 }
 
-export const ModalNewPay: React.FC<StyledModalNewProps> = ({ onClick }) => {
+export const ModalNewPay: React.FC<StyledModalNewProps> = ({ onClick, id }) => {
     const [newPay, setNewPay] = useState<boolean>(true)
     const [newRec, setNewRec] = useState<boolean>(false)
 
@@ -136,7 +137,7 @@ export const ModalNewPay: React.FC<StyledModalNewProps> = ({ onClick }) => {
     async function handleNewTransaction() {
         const fetchClass = new Fetch<INewTransaction>("Transaction/insert.php");
         const body = {
-            "user_id": "1",
+            "user_id": id,
             "type": newPay ? "Gasto" : "Recebimento",
             "date": date,
             "cost": cost,

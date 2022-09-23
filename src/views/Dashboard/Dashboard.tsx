@@ -24,14 +24,15 @@ const Dashboard = () => {
   const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
   const [editId, setEditId] = useState<number>(0);
 
+  const [userId, setUserId] = useState<string | null>('')
   const [list, setList] = useState<Array<string[]>>([])
 
   let heading = ['ID', 'Tipo', 'Data', 'Valor', 'Origem', 'Descrição', 'Endereço', 'Forma de pagamento'];
 
   useEffect(() => {
-    const idLogado = localStorage.getItem('userID')
+    setUserId(localStorage.getItem('userID'))
     const loadList = async () => {
-      const fetchClass = new Fetch<{}>(`Transaction/index.php?id=${idLogado}`)
+      const fetchClass = new Fetch<{}>(`Transaction/index.php?id=${userId}`)
       const data = await fetchClass.get()
       const newList: Array<string[]> = []
 
@@ -79,7 +80,7 @@ const Dashboard = () => {
 
   return (
     <>
-      {displayModal && <ModalNewPay onClick={() => setDisplayModal(false)} />}
+      {displayModal && <ModalNewPay id={userId} onClick={() => setDisplayModal(false)} />}
       {displayEditModal && <ModalAlterPay list={list} id={editId} onClick={() => setDisplayEditModal(false)} />}
       <MenuAndHeader>
         <StyledTablesContainer>
