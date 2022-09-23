@@ -6,7 +6,6 @@ import { Link,  } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify"
 
-
 import Input from '../../Components/FormComponents/Input'
 import ButtonsSocial from "../../Components/FormComponents/ButtonsSocial";
 import ButtonForm from "../../Components/FormComponents/ButtonForm";
@@ -50,9 +49,14 @@ function FormLogin() {
     })
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        setshowErros(true)
+        redirectToPath()
         handleSubmit(e)
     }
+
+    const redirectToPath = () => {
+        const redirectPath = AuthUtils.getMainPath();
+        navigate(redirectPath);
+    };
 
     return (
         <ContainerForm>
@@ -85,17 +89,14 @@ function FormLogin() {
                 <p>Ou Faça Login</p>
                 <ContainerSocial>
                     <ButtonsSocial
-                        onclick={undefined}
                         backgroundColor='#3b5998'
                         name={<FaFacebookF />}
                     />
                     <ButtonsSocial
-                        onclick={undefined}
                         backgroundColor='#000'
                         name={<FaGithub />}
                     />
                     <ButtonsSocial
-                        onclick={undefined}
                         backgroundColor='#EA4335'
                         name={<FaGoogle />} />
                 </ContainerSocial>
@@ -153,7 +154,7 @@ const Container = styled.div`
 const ContainerLogin = styled.form`  
     min-height: 80%;
     min-width: 30%;
-    background: ${({ theme }) => theme.bodyComponent};
+    background: ${({ theme }) => theme.black};
     display: flex;
     flex-direction: column;
     align-items: center;

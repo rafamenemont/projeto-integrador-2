@@ -1,57 +1,102 @@
 import React from "react"
 import styled from "styled-components"
 
+interface IButtonProps {
+    text: string,
+    active?: boolean,
+    children?: JSX.Element
+    onClick?: React.MouseEventHandler<HTMLButtonElement>
+}
 
-export const Button: React.FC<{
-    text: string
-    format: string
-}> = ({ text, format }) => {
+export const TButton: React.FC<IButtonProps> = ({ text, active, onClick, children }) => {
     return (
-        format === "transparent" ? <TransparentButton>{text}</TransparentButton> : <SolidButton>{text}</SolidButton>
+        <TransparentButton className={active ? "active" : ""} onClick={onClick}>{children}{text}</TransparentButton>
+    )
+}
+
+export const SButton: React.FC<IButtonProps> = ({ text, active, onClick, children }) => {
+    return (
+        <SolidButton className={active ? "active" : ""} onClick={onClick}>{children}{text}</SolidButton>
     )
 }
 
 const TransparentButton = styled.button`
-    width: 150px;
-    height: 50px;
-
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
 
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: bold;
+    position: relative;
+    min-width: 136px;
+    height: 46px;
+    padding: 0 20px;
+    border-radius: 16px/16px;
     font-family: ${({ theme }) => theme.fontTheme};
-    color: ${({ theme }) => theme.toggleBorder};
-    
-    background: transparent;
-    border: 2px solid  ${({ theme }) => theme.toggleBorder};
-    border-radius: 10px;
-
+    font-size: 14px;
+    line-height: 1.42857;
+    font-weight: 700;
+    -webkit-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+    background: ${({ theme }) => theme.buttonTransparent};
+    color: ${({ theme }) => theme.buttonTransparentText};
+    border: 2px solid ${({ theme }) => theme.buttonTransparentBorder};
     cursor: pointer;
+    flex-wrap: nowrap;
 
     &:hover {
-        color: ${({ theme }) => theme.background};
-        background: ${({ theme }) => theme.toggleBorder};
-        border: 2px solid  ${({ theme }) => theme.toggleBorder};
+        background: ${({ theme }) => theme.buttonTransparentHover};
+        border: 2px solid ${({ theme }) => theme.buttonTransparentHover};
     }
 
+    &.active {
+        background: ${({ theme }) => theme.buttonTransparentHover};
+        border: 2px solid ${({ theme }) => theme.buttonTransparentHover};
+    }
+    
+    @media (max-width: 768px) {
+        width: 130px;
+        height: 46px;
+        font-size: 12px;
+    }
 `
 
 const SolidButton = styled.button`
-    width: 300px;
-    height: 150px;
-
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
+    position: relative;
 
+    min-width: 136px;
+    height: 46px;
+    padding: 0 20px;
+    border-radius: 16px/16px;
     font-family: ${({ theme }) => theme.fontTheme};
-
-    border: 2px solid  ${({ theme }) => theme.background};
+    font-size: 14px;
+    line-height: 1.42857;
+    font-weight: 700;
+    -webkit-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+    background: ${({ theme }) => theme.buttonSolid};
+    color: ${({ theme }) => theme.buttonSolidText};
+    border: 2px solid ${({ theme }) => theme.buttonSolidBorder};
+    cursor: pointer;
 
     &:hover {
-        background: ${({ theme }) => theme.background};
+        background: ${({ theme }) => theme.buttonSolidHover};
+        border: 2px solid ${({ theme }) => theme.buttonSolidHover};
+    }
+
+    &.active {
+        background: ${({ theme }) => theme.buttonSolidHover};
+        border: 2px solid ${({ theme }) => theme.buttonSolidHover};
+    }
+    
+    @media (max-width: 768px) {
+        width: 130px;
+        height: 46px;
+        font-size: 12px;
     }
 `

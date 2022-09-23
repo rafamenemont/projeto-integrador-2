@@ -15,7 +15,7 @@ const Container = styled.div`
   padding: 32px;
   margin: auto;
   border-radius: 24px;
-  background: ${({ theme }) => theme.bodyComponent};
+  background: ${({ theme }) => theme.black};
   flex: 50%;
   width: 50%;
   margin: 0 16px;
