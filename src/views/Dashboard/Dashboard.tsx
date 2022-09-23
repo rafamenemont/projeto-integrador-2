@@ -51,6 +51,8 @@ const Dashboard = () => {
 
       data.forEach((item: IData) => newList.push([item.id.toString(), item.type, item.date, item.cost, item.origin, item.description, item.adress, item.payment]))
 
+      console.log(newList)
+
       setList(newList)
       setBalance(parseInt(formatValue[0]))
       setCents(parseInt(formatValue[1]))
