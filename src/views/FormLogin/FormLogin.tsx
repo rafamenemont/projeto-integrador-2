@@ -11,6 +11,13 @@ import ButtonsSocial from "../../Components/FormComponents/ButtonsSocial";
 import ButtonForm from "../../Components/FormComponents/ButtonForm";
 import { loginSchema } from "../../Schema/login";
 import AuthUtils from "../../util/auth-utils";
+import { Fetch } from "../../modules/fetch";
+
+
+interface InewLogin {
+    "login": string;
+    "password": string;
+}
 
 function FormLogin() {
 
@@ -18,6 +25,8 @@ function FormLogin() {
     const [status, setStatus] = useState<number>(0)
 
     const navigate = useNavigate()
+
+
 
     useEffect(() => {
         switch (status) {
@@ -40,14 +49,15 @@ function FormLogin() {
         },
         validationSchema: loginSchema,
         onSubmit: async values => {
-            await fetch('http://localhost/walletServer/api/routes/Users/login.php', {
-                method: 'POST',
-                body: JSON.stringify({
-                    "login": values.email,
-                    "password": values.password
-                })
-            })
-                .then(resp => setStatus(resp.status))
+            const fetchClass = new Fetch<InewLogin>("Users/login.php");
+            const body = {
+                "login": values.email,
+                "password": values.password,
+              
+            }
+            const resp = await fetchClass.post(body)
+            console.log(resp.data.id )
+            console.log(resp.status)
         }
     })
 
