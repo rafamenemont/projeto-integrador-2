@@ -2,7 +2,7 @@ import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import styled from 'styled-components'
 import { useFormik } from "formik";
 import { useState, useEffect } from 'react'
-import { Link,  } from "react-router-dom";
+import { Link, useNavigate, } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify"
 
@@ -10,22 +10,25 @@ import Input from '../../Components/FormComponents/Input'
 import ButtonsSocial from "../../Components/FormComponents/ButtonsSocial";
 import ButtonForm from "../../Components/FormComponents/ButtonForm";
 import { loginSchema } from "../../Schema/login";
+import AuthUtils from "../../util/auth-utils";
 
 function FormLogin() {
 
     const [showErros, setshowErros] = useState<boolean>(false)
     const [status, setStatus] = useState<number>(0)
 
+    const navigate = useNavigate()
+
     useEffect(() => {
-        switch(status){
+        switch (status) {
             case 200:
-                
+
                 break;
             case 404:
                 toast.warning('Conta não encontrada')
                 break;
             default:
-                return        
+                return
         }
         setStatus(0)
     }, [status])
