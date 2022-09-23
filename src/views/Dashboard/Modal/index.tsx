@@ -1,12 +1,17 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import Select from 'react-select'
 import { SButton, TButton } from "../../../Components/Button/button"
 import { Input } from "../../../Components/Input/input"
 import { Fetch } from "../../../modules/fetch";
 import { GroupBtn, GroupSelect, IconCancel, IconClose, IconConfirm, IconPay, IconReceive, IconTrash, IconWallet, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalRow, ModalShadow } from "./style"
 
-interface StyledModalProps {
+interface StyledModalNewProps {
     onClick: () => void;
+}
+interface StyledModalEditProps {
+    onClick: () => void;
+    id: number;
+    list: Array<string[]>
 }
 
 interface INewTransaction {
@@ -34,7 +39,7 @@ interface IDeleteTransaction {
     "transaction_id": string;
 }
 
-export const ModalNewPay: React.FC<StyledModalProps> = ({ onClick }) => {
+export const ModalNewPay: React.FC<StyledModalNewProps> = ({ onClick }) => {
     const [newPay, setNewPay] = useState<boolean>(true)
     const [newRec, setNewRec] = useState<boolean>(false)
 
@@ -141,7 +146,9 @@ export const ModalNewPay: React.FC<StyledModalProps> = ({ onClick }) => {
             "adress": adress
         }
 
-        console.log(await fetchClass.post(body))
+        const response = await fetchClass.post(body)
+
+        console.log(response.data)
     }
 
     return (
@@ -185,7 +192,8 @@ export const ModalNewPay: React.FC<StyledModalProps> = ({ onClick }) => {
     )
 }
 
-export const ModalAlterPay: React.FC<StyledModalProps> = ({ onClick }) => {
+export const ModalAlterPay: React.FC<StyledModalEditProps> = ({ onClick, id, list }) => {
+    const [itemId, setItemId] = useState<string>('')
     const [date, setDate] = useState<string>('')
     const [cost, setCost] = useState<string>('')
     const [origin, setOrigin] = useState<string>('')
@@ -271,10 +279,21 @@ export const ModalAlterPay: React.FC<StyledModalProps> = ({ onClick }) => {
         })
     }
 
+    useEffect(() => {
+        const date = list[id][2].split("/")
+        setItemId(list[id][0])
+        setDate(`${date[2]}-${date[1]}-${date[0]}`)
+        setCost(list[id][3])
+        setOrigin(list[id][4])
+        setPayment(list[id][7])
+        setDescription(list[id][5])
+        setAdress(list[id][6])
+    }, [])
+
     async function handleAlterTransaction() {
         const fetchClass = new Fetch<IAlterTransaction>("Transaction/update.php");
         const body = {
-            "transaction_id": "7",
+            "transaction_id": itemId,
             "date": date,
             "cost": cost,
             "payment": payment,
@@ -289,7 +308,7 @@ export const ModalAlterPay: React.FC<StyledModalProps> = ({ onClick }) => {
     async function handleDeleteTransaction() {
         const fetchClass = new Fetch<IDeleteTransaction>("Transaction/delete.php");
         const body = {
-            "transaction_id": "7"
+            "transaction_id": itemId
         }
 
         console.log(await fetchClass.post(body))
@@ -307,17 +326,17 @@ export const ModalAlterPay: React.FC<StyledModalProps> = ({ onClick }) => {
                     <IconClose onClick={onClick} />
                 </ModalHeader>
                 <ModalBody>
-                    <Input onChange={handleChangeDate} type="date" placeholder="Data da transação" label="Data" />
-                    <Input onChange={handleChangeCost} type="text" placeholder="R$ 99,99" label="Valor" />
+                    <Input value={date} onChange={handleChangeDate} type="date" placeholder="Data da transação" label="Data" />
+                    <Input value={cost} onChange={handleChangeCost} type="text" placeholder="R$ 99,99" label="Valor" />
                     <GroupSelect>
                         <label>Origem</label>
-                        <Select placeholder="Selecione a origem..." styles={selectStyles} onChange={handleChangeOrigin} options={originOptions} />
+                        <Select value={{ value: origin, label: origin }} placeholder="Selecione a origem..." styles={selectStyles} onChange={handleChangeOrigin} options={originOptions} />
                     </GroupSelect>
-                    <Input onChange={handleChangeDescription} type="text" placeholder="Gasto com farmácia" label="Tipo" />
+                    <Input value={description} onChange={handleChangeDescription} type="text" placeholder="Gasto com farmácia" label="Descrição" />
                     <Input onChange={handleChangeAdress} type="text" placeholder="Endereço" label="Endereço" />
                     <GroupSelect>
                         <label>Forma de pagamento</label>
-                        <Select placeholder="Selecione a forma de pagamento..." styles={selectStyles} onChange={handleChangePayment} options={paymentOptions} />
+                        <Select value={{ value: payment, label: payment }} placeholder="Selecione a forma de pagamento..." styles={selectStyles} onChange={handleChangePayment} options={paymentOptions} />
                     </GroupSelect>
                 </ModalBody>
                 <ModalFooter>
