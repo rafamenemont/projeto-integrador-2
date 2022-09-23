@@ -39,7 +39,9 @@ const Dashboard = () => {
       const data = await fetchClass.get()
       const newList: Array<string[]> = []
 
-      data.forEach((item: IData) => newList.push([item.id, item.type, item.date, item.cost, item.origin, item.origin, item.description, item.adress, item.payment]))
+      data.forEach((item: IData) => newList.push([item.id.toString(), item.type, item.date, item.cost, item.origin, item.origin, item.description, item.adress, item.payment]))
+
+      console.log(newList)
 
       setList(newList)
     }
