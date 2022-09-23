@@ -9,6 +9,16 @@ import styled from "styled-components"
 import { useState, useEffect } from "react"
 import { useFormik } from "formik"
 import { Link } from "react-router-dom"
+import { Fetch } from "../../modules/fetch";
+
+interface INewUser {
+  "name": string;
+  "nickname": string;
+  "email": string;
+  "password": string;
+  "c_password": string;
+  "avatar_id": string;
+}
 
 function FormSignUp() {
   const [showErros, setshowErros] = useState(false)
@@ -30,22 +40,18 @@ function FormSignUp() {
     },
     validationSchema: signupSchema,
     onSubmit : async values => {
-      await fetch('http://localhost/WalletServer/api/routes/Users/signup.php', {
-        method: 'POST',
-        body: JSON.stringify({
-          "name": values.fullname,
-          "nickname": values.nickname,
-          "email": values.email,
-          "password": values.password,
-          "c_password": values.confirmPassword,
-          "avatar_id": "4"
-        })
-      })
-        .then(resp => resp.json())
-        .then(data => {
-          console.log(data)
-          setMessage(data.data)
-        })
+      const fetchClass = new Fetch<INewUser>("Users/signup.php");
+      const body = {
+        "name": values.fullname,
+        "nickname": values.nickname,
+        "email": values.email,
+        "password": values.password,
+        "c_password": values.confirmPassword,
+        "avatar_id": "4"
+      }
+      const resp = await fetchClass.post(body)
+      console.log(resp.data)
+      console.log(resp.status)
     }
   })
 
