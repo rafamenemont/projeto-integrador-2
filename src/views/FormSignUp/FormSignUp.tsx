@@ -1,26 +1,51 @@
-import styled from "styled-components"
-
 import { ContainerForm } from "../FormLogin/FormLogin"
 import Input from "../../Components/FormComponents/Input"
 import ButtonForm from "../../Components/FormComponents/ButtonForm"
 import { signupSchema } from "../../Schema/signup"
-import { useState } from "react"
+
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify"
+import styled from "styled-components"
+import { useState, useEffect } from "react"
 import { useFormik } from "formik"
 import { Link } from "react-router-dom"
 
 function FormSignUp() {
   const [showErros, setshowErros] = useState(false)
+  const [message, setMessage] = useState('')
+
+  useEffect (()=>{
+    if(message !== '' ){
+      toast.success(message)
+    }
+  }, [message])
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      email:'',
+      nickname: '',
       fullname: '',
+      email: '',
       password: '',
       confirmPassword: '',
     },
     validationSchema: signupSchema,
-    onSubmit: values => {
-      console.log(values)
+    onSubmit : async values => {
+      await fetch('http://localhost/WalletServer/api/routes/Users/signup.php', {
+        method: 'POST',
+        body: JSON.stringify({
+          "name": values.fullname,
+          "nickname": values.nickname,
+          "email": values.email,
+          "password": values.password,
+          "c_password": values.confirmPassword,
+          "avatar_id": "4"
+        })
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          console.log(data)
+          setMessage(data.data)
+        })
     }
   })
 
@@ -32,14 +57,24 @@ function FormSignUp() {
   return (
     <ContainerForm>
       <ContainerSignUp onSubmit={onSubmit}>
-        <h1>Create Your Account</h1>
+        <h1>Crie a sua conta</h1>
         <Container>
+          <ToastContainer position="top-center" theme="dark" autoClose={3000} hideProgressBar={true}/>
           <Input
-            labelName="Full Name"
+            labelName="Nickname"
+            id="nickname"
+            type="text"
+            onChange={handleChange}
+            place='Digite o seu Nickname'
+            value={values.nickname}
+            error={showErros ? errors.nickname : ''}
+          />
+          <Input
+            labelName="Nome Completo"
             id="fullname"
             type="text"
             onChange={handleChange}
-            place="Type Your Full Name"
+            place="Digite seu nome completo"
             value={values.fullname}
             error={showErros ? errors.fullname : ''}
           />
@@ -48,32 +83,32 @@ function FormSignUp() {
             id="email"
             type="text"
             onChange={handleChange}
-            place="Type Your Email"
+            place="Digite seu Email"
             value={values.email}
             error={showErros ? errors.email : ''}
           />
           <Input
-            labelName="Password"
+            labelName="Senha"
             type="password"
             id="password"
             onChange={handleChange}
-            place="Type Your Password"
+            place="Digite sua senha"
             value={values.password}
             error={showErros ? errors.password : ''}
           />
           <Input
-            labelName="Confirm Password"
+            labelName="Confirme sua senha"
             type="password"
             id="confirmPassword"
             onChange={handleChange}
-            place="Confirm Your Password"
+            place="Confirme sua senha"
             value={values.confirmPassword}
             error={showErros ? errors.confirmPassword : ''}
           />
         </Container>
         <ButtonForm type="submit" name="Sign Up" />
         <LoginContainer>
-          <p>Already have a account?</p>
+          <p>Já tem sua conta?</p>
           <Link to="/Login">Login</Link>
         </LoginContainer>
       </ContainerSignUp>
@@ -82,6 +117,7 @@ function FormSignUp() {
 }
 
 export default FormSignUp
+
 
 const LoginContainer = styled.div`
 min-width: 100%;
@@ -108,7 +144,7 @@ const Container = styled.div`
 `
 
 const ContainerSignUp = styled.form`
-    min-height: 80%;
+    min-height: 90%;
     min-width: 50%;
     background: ${({ theme }) => theme.black};
     display: flex;

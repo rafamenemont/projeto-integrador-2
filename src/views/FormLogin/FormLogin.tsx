@@ -1,28 +1,50 @@
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import styled from 'styled-components'
 import { useFormik } from "formik";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Link,  } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify"
 
 import Input from '../../Components/FormComponents/Input'
 import ButtonsSocial from "../../Components/FormComponents/ButtonsSocial";
 import ButtonForm from "../../Components/FormComponents/ButtonForm";
 import { loginSchema } from "../../Schema/login";
-import { Link, useNavigate } from "react-router-dom";
-import AuthUtils from "../../util/auth-utils";
 
 function FormLogin() {
 
-    const [showErros, setshowErros] = useState(false)
-    const navigate = useNavigate();
+    const [showErros, setshowErros] = useState<boolean>(false)
+    const [status, setStatus] = useState<number>(0)
 
-    const {values, errors, handleChange, handleSubmit} = useFormik({
+    useEffect(() => {
+        switch(status){
+            case 200:
+                
+                break;
+            case 404:
+                toast.warning('Conta não encontrada')
+                break;
+            default:
+                return        
+        }
+        setStatus(0)
+    }, [status])
+
+    const { values, errors, handleChange, handleSubmit } = useFormik({
         initialValues: {
             email: '',
             password: ''
         },
-        validationSchema:loginSchema,
-        onSubmit: values => {
-            console.log(values)
+        validationSchema: loginSchema,
+        onSubmit: async values => {
+            await fetch('http://localhost/walletServer/api/routes/Users/login.php', {
+                method: 'POST',
+                body: JSON.stringify({
+                    "login": values.email,
+                    "password": values.password
+                })
+            })
+                .then(resp => setStatus(resp.status))
         }
     })
 
@@ -41,29 +63,30 @@ function FormLogin() {
             <ContainerLogin onSubmit={onSubmit}>
                 <h1><span>W</span>elcome</h1>
                 <Container>
+                    <ToastContainer limit={2} position="top-center" theme="dark" autoClose={1000} hideProgressBar={true} />
                     <Input
                         type='text'
                         labelName='Email'
                         id="email"
                         onChange={handleChange}
-                        place='Type Your Email'
+                        place='Digite seu Email'
                         value={values.email}
                         error={showErros ? errors.email : ''}
                     />
 
                     <Input
                         type='password'
-                        labelName='Password'
+                        labelName='Senha'
                         id="password"
                         onChange={handleChange}
-                        place='Type Your Password'
+                        place='Digite a sua senha'
                         value={values.password}
                         error={showErros ? errors.password : ''}
                     />
-                    <Link to="/">Forgot Password?</Link>
+                    <Link to="/">Esqueceu a senha?</Link>
                     <ButtonForm type="submit" name='Login' />
                 </Container>
-                <p>Or Login Using</p>
+                <p>Ou Faça Login</p>
                 <ContainerSocial>
                     <ButtonsSocial
                         backgroundColor='#3b5998'
@@ -78,7 +101,7 @@ function FormLogin() {
                         name={<FaGoogle />} />
                 </ContainerSocial>
                 <ContaierSign>
-                    <p>Don't have an account?</p>
+                    <p>Não tem uma conta?</p>
                     <Link to='/Signup'>Sign Up</Link>
                 </ContaierSign>
             </ContainerLogin>
