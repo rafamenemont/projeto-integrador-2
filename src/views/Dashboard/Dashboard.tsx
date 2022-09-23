@@ -19,8 +19,10 @@ interface IData {
 
 const Dashboard = () => {
   const [balance, setBalance] = useState<number>(0)
+  const [cents, setCents] = useState<number>(0)
   const [displayModal, setDisplayModal] = useState<boolean>(false);
   const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
+  const [editId, setEditId] = useState<number>(0);
 
   const [list, setList] = useState<Array<string[]>>([])
 
@@ -33,19 +35,24 @@ const Dashboard = () => {
       const newList: Array<string[]> = []
 
       let newBalance = 0
+      let formatValue = ['']
 
       for (let i = 0; i < data.length; i++) {
         if (data[i].type == "Gasto") {
-          newBalance -= parseInt(data[i].cost.replace("R$", ""))
+          newBalance -= parseFloat(data[i].cost.replace("R$", "").replace(",", "."))
         } else {
-          newBalance += parseInt(data[i].cost.replace("R$", ""))
+          newBalance += parseFloat(data[i].cost.replace("R$", "").replace(",", "."))
         }
       }
 
-      data.forEach((item: IData) => newList.push([item.id.toString(), item.type, item.date, item.cost, item.origin, item.origin, item.description, item.adress, item.payment]))
+      formatValue = newBalance.toString().split(".")
 
+      data.forEach((item: IData) => newList.push([item.id.toString(), item.type, item.date, item.cost, item.origin, item.description, item.adress, item.payment]))
+
+      console.log(newBalance)
       setList(newList)
-      setBalance(newBalance)
+      setBalance(parseInt(formatValue[0]))
+      setCents(parseInt(formatValue[1]))
     }
 
     loadList()
@@ -55,9 +62,14 @@ const Dashboard = () => {
     setList([])
   }, [displayModal, displayEditModal])
 
-  const tableRow = (row: string[]) => {
+  const tableRow = (row: string[], id: number) => {
+    function handleEditModal() {
+      setEditId(id)
+      setDisplayEditModal(true)
+    }
+
     return (
-      <StyledRow onClick={() => setDisplayEditModal(true)}>
+      <StyledRow onClick={handleEditModal}>
         {row.map(val => <div>{val}</div>)}
       </StyledRow>
     )
@@ -66,7 +78,7 @@ const Dashboard = () => {
   return (
     <>
       {displayModal && <ModalNewPay onClick={() => setDisplayModal(false)} />}
-      {displayEditModal && <ModalAlterPay onClick={() => setDisplayEditModal(false)} />}
+      {displayEditModal && <ModalAlterPay list={list} id={editId} onClick={() => setDisplayEditModal(false)} />}
       <MenuAndHeader>
         <StyledTablesContainer>
           <SuperiorMenu>
@@ -78,7 +90,7 @@ const Dashboard = () => {
           <Container>
             Saldo
             <BalanceTitle>R$ {balance.toLocaleString('pt-br')}
-              <div> ,00</div>
+              <div> ,{cents < 10 ? cents.toString() + "0" : cents.toString()}</div>
             </BalanceTitle>
             <ActionButton><SButton text="Nova transação" onClick={() => setDisplayModal(true)}><IconReceive /></SButton> </ActionButton>
 
@@ -89,7 +101,7 @@ const Dashboard = () => {
                 {heading.map(head => <div>{head}</div>)}
               </StyledHead>
               <StyledBody>
-                {list.map(row => tableRow(row))}
+                {list.map((row, key) => tableRow(row, key))}
               </StyledBody>
             </StyledTable>
           </ContainerTable>
