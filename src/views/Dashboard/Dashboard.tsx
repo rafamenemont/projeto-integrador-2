@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { SButton } from "../../Components/Button/button";
 import MenuAndHeader from "../menu-and-header/MenuAndHeader";
 import { MdOutlineAttachMoney } from 'react-icons/md';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ModalAlterPay, ModalNewPay } from "./Modal";
 import { Fetch } from "../../modules/fetch";
 
@@ -18,7 +18,7 @@ interface IData {
 }
 
 const Dashboard = () => {
-  const balance = 5000
+  const [balance, setBalance] = useState<number>(0)
   const [displayModal, setDisplayModal] = useState<boolean>(false);
   const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
 
@@ -32,15 +32,28 @@ const Dashboard = () => {
       const data = await fetchClass.get()
       const newList: Array<string[]> = []
 
+      let newBalance = 0
+
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].type == "Gasto") {
+          newBalance -= parseInt(data[i].cost.replace("R$", ""))
+        } else {
+          newBalance += parseInt(data[i].cost.replace("R$", ""))
+        }
+      }
+
       data.forEach((item: IData) => newList.push([item.id.toString(), item.type, item.date, item.cost, item.origin, item.origin, item.description, item.adress, item.payment]))
 
-      console.log(newList)
-
       setList(newList)
+      setBalance(newBalance)
     }
 
     loadList()
-  },)
+  }, [list])
+
+  useCallback(() => {
+    setList([])
+  }, [displayModal, displayEditModal])
 
   const tableRow = (row: string[]) => {
     return (

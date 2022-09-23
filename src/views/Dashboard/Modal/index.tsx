@@ -141,7 +141,9 @@ export const ModalNewPay: React.FC<StyledModalProps> = ({ onClick }) => {
             "adress": adress
         }
 
-        console.log(await fetchClass.post(body))
+        const response = await fetchClass.post(body)
+
+        console.log(response.data)
     }
 
     return (
