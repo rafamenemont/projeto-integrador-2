@@ -26,22 +26,23 @@ const Dashboard = () => {
 
   const [list, setList] = useState<Array<string[]>>([])
 
-  var heading = ['ID', 'Tipo', 'Data', 'Valor', 'Origem', 'Descrição', 'Endereço', 'Forma de pagamento'];
+  let heading = ['ID', 'Tipo', 'Data', 'Valor', 'Origem', 'Descrição', 'Endereço', 'Forma de pagamento'];
 
   useEffect(() => {
+    const idLogado = localStorage.getItem('userID')
     const loadList = async () => {
-      const fetchClass = new Fetch<{}>("Transaction/index.php?id=1")
+      const fetchClass = new Fetch<{}>(`Transaction/index.php?id=${idLogado}`)
       const data = await fetchClass.get()
       const newList: Array<string[]> = []
 
       let newBalance = 0
       let formatValue = ['']
 
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].type == "Gasto") {
-          newBalance -= parseFloat(data[i].cost.replace("R$", "").replace(",", "."))
+      for (const element of data) {
+        if (element.type === "Gasto") {
+          newBalance -= parseFloat(element.cost.replace("R$", "").replace(",", "."))
         } else {
-          newBalance += parseFloat(data[i].cost.replace("R$", "").replace(",", "."))
+          newBalance += parseFloat(element.cost.replace("R$", "").replace(",", "."))
         }
       }
 
@@ -63,9 +64,11 @@ const Dashboard = () => {
 
   const tableRow = (row: string[], id: number) => {
     function handleEditModal() {
+
       setEditId(id)
       setDisplayEditModal(true)
     }
+
 
     return (
       <StyledRow onClick={handleEditModal}>

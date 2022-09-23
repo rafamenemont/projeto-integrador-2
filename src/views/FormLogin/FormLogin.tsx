@@ -23,6 +23,8 @@ function FormLogin() {
 
     const [showErros, setshowErros] = useState<boolean>(false)
     const [status, setStatus] = useState<number>(0)
+    const [message, setMessage] = useState<string>('')
+
 
     const navigate = useNavigate()
 
@@ -31,10 +33,11 @@ function FormLogin() {
     useEffect(() => {
         switch (status) {
             case 200:
-
+                toast.success(message)
+                redirectToPath()
                 break;
             case 404:
-                toast.warning('Conta não encontrada')
+                toast.warning(message)
                 break;
             default:
                 return
@@ -56,13 +59,14 @@ function FormLogin() {
               
             }
             const resp = await fetchClass.post(body)
-            console.log(resp.data.id )
-            console.log(resp.status)
+            localStorage.setItem('userID', resp.data.id)
+            setMessage(resp.data )
+            setStatus(resp.status)
         }
     })
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        redirectToPath()
+        setshowErros(true)
         handleSubmit(e)
     }
 
