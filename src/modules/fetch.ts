@@ -15,7 +15,7 @@ export class Fetch<T> {
 
     async post(body: T) {
         return await fetch(this._url, { method: "POST", body: JSON.stringify(body) }).then(
-            async response => { return await response.json() }
+            async response => { return { status: response.status, data: response.json() } }
         ).catch(
             err => { return err }
         )
