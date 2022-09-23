@@ -24,14 +24,7 @@ const Dashboard = () => {
 
   const [list, setList] = useState<Array<string[]>>([])
 
-
   var heading = ['ID', 'Tipo', 'Data', 'Valor', 'Origem', 'Descrição', 'Endereço', 'Forma de pagamento'];
-  var body =
-    [
-      ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
-      ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
-      ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
-    ];
 
   useEffect(() => {
     const loadList = async () => {
