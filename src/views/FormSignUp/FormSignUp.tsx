@@ -22,13 +22,23 @@ interface INewUser {
 
 function FormSignUp() {
   const [showErros, setshowErros] = useState(false)
-  const [message, setMessage] = useState('')
+  const [status, setStatus] = useState<number>(0)
+  const [message, setMessage] = useState<string>('')
+  
 
-  useEffect (()=>{
-    if(message !== '' ){
-      toast.success(message)
+  useEffect(() => {
+    switch (status) {
+      case 200:
+        toast.success(message)
+        break;
+      case 400:
+        toast.warning(message)
+        break;
+      default:
+        return
     }
-  }, [message])
+    setStatus(0)
+  }, [status])
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
@@ -50,8 +60,8 @@ function FormSignUp() {
         "avatar_id": "4"
       }
       const resp = await fetchClass.post(body)
-      console.log(resp.data)
-      console.log(resp.status)
+      setMessage(resp.data)
+      setStatus(resp.status)
     }
   })
 
