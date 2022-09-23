@@ -2,10 +2,9 @@ import styled from "styled-components";
 import { SButton } from "../../Components/Button/button";
 import MenuAndHeader from "../menu-and-header/MenuAndHeader";
 import { MdOutlineAttachMoney } from 'react-icons/md';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalAlterPay, ModalNewPay } from "./Modal";
-
-
+import { Fetch } from "../../modules/fetch";
 
 const Dashboard = () => {
 
@@ -14,13 +13,24 @@ const Dashboard = () => {
   const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
 
 
-  var heading = ['Data', 'Valor', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'];
+  var heading = ['ID', 'Tipo', 'Data', 'Valor', 'Origem', 'Descrição', 'Endereço', 'Forma de pagamento'];
   var body =
     [
       ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
       ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
       ['22/07', 'R$ 19,50', 'Origem', 'Tipo', 'Endereço', 'Forma de pagamento'],
     ];
+
+  useEffect(() => {
+    const loadList = async () => {
+      const fetchClass = new Fetch<{}>("Transaction/index.php?id=1")
+      const data = fetchClass.get()
+
+      console.log(data)
+    }
+
+    loadList()
+  },)
 
   const tableRow = (row: string[]) => {
     return (
