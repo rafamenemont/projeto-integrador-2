@@ -6,11 +6,23 @@ import { useEffect, useState } from "react";
 import { ModalAlterPay, ModalNewPay } from "./Modal";
 import { Fetch } from "../../modules/fetch";
 
-const Dashboard = () => {
+interface IData {
+  id: string,
+  type: string,
+  date: string,
+  cost: string,
+  origin: string,
+  description: string,
+  adress: string,
+  payment: string
+}
 
+const Dashboard = () => {
   const balance = 5000
   const [displayModal, setDisplayModal] = useState<boolean>(false);
   const [displayEditModal, setDisplayEditModal] = useState<boolean>(false);
+
+  const [list, setList] = useState<Array<string[]>>([])
 
 
   var heading = ['ID', 'Tipo', 'Data', 'Valor', 'Origem', 'Descrição', 'Endereço', 'Forma de pagamento'];
@@ -24,9 +36,12 @@ const Dashboard = () => {
   useEffect(() => {
     const loadList = async () => {
       const fetchClass = new Fetch<{}>("Transaction/index.php?id=1")
-      const data = fetchClass.get()
+      const data = await fetchClass.get()
+      const newList: Array<string[]> = []
 
-      console.log(data)
+      data.forEach((item: IData) => newList.push([item.id, item.type, item.date, item.cost, item.origin, item.origin, item.description, item.adress, item.payment]))
+
+      setList(newList)
     }
 
     loadList()
@@ -66,7 +81,7 @@ const Dashboard = () => {
                 {heading.map(head => <div>{head}</div>)}
               </StyledHead>
               <StyledBody>
-                {body.map(row => tableRow(row))}
+                {list.map(row => tableRow(row))}
               </StyledBody>
             </StyledTable>
           </ContainerTable>
